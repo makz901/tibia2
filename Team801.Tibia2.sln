@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Team801.Tibia2.Server", "Team801.Tibia2.Server\Team801.Tibia2.Server.csproj", "{F9D93000-4C71-43DB-9750-7FBA478B35A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Team801.Tibia2.Core", "Team801.Tibia2.Core\Team801.Tibia2.Core.csproj", "{FF781B9D-E246-43BF-BBD5-4CE2B9F57A9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Team801.Tibia2.Client", "Team801.Tibia2.Client\Team801.Tibia2.Client.csproj", "{B05FE3ED-9A81-4BBD-B50F-CE5BEA7E61B6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F9D93000-4C71-43DB-9750-7FBA478B35A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9D93000-4C71-43DB-9750-7FBA478B35A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9D93000-4C71-43DB-9750-7FBA478B35A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9D93000-4C71-43DB-9750-7FBA478B35A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF781B9D-E246-43BF-BBD5-4CE2B9F57A9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF781B9D-E246-43BF-BBD5-4CE2B9F57A9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF781B9D-E246-43BF-BBD5-4CE2B9F57A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF781B9D-E246-43BF-BBD5-4CE2B9F57A9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B05FE3ED-9A81-4BBD-B50F-CE5BEA7E61B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B05FE3ED-9A81-4BBD-B50F-CE5BEA7E61B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B05FE3ED-9A81-4BBD-B50F-CE5BEA7E61B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B05FE3ED-9A81-4BBD-B50F-CE5BEA7E61B6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BCF59E5D-12A6-42EA-98CB-98081C80DEFC}
+	EndGlobalSection
+EndGlobal
