@@ -80,7 +80,7 @@ namespace Team801.Tibia2.Server
 
         public void OnNetworkReceive(NetPeer peer, NetPacketReader reader, DeliveryMethod deliveryMethod)
         {
-            _packetProcessor.ReadAllPackets(reader);
+            _packetProcessor.ReadAllPackets(reader, peer);
         }
 
         public void OnNetworkReceiveUnconnected(IPEndPoint remoteEndPoint, NetPacketReader reader, UnconnectedMessageType messageType)
