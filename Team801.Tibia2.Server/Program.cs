@@ -2,6 +2,7 @@
 using System.Threading;
 using LiteNetLib;
 using LiteNetLib.Utils;
+using Team801.Tibia2.Core;
 
 namespace Team801.Tibia2.Server
 {
@@ -9,11 +10,10 @@ namespace Team801.Tibia2.Server
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello Server!");
+            Console.WriteLine("Server started");
 
-            EventBasedNetListener listener = new EventBasedNetListener();
-            NetManager server = new NetManager(listener);
-            server.Start(9050 /* port */);
+            var listener = new EventBasedNetListener();
+            var server = new NetManager(listener);
 
             listener.ConnectionRequestEvent += request =>
             {
@@ -27,21 +27,29 @@ namespace Team801.Tibia2.Server
             {
                 Console.WriteLine("We got connection: {0}", peer.EndPoint); // Show peer ip
                 NetDataWriter writer = new NetDataWriter();                 // Create writer class
-                writer.Put("Hello client!");                                // Put some string
+                writer.Put($"Hello client {peer.Id}!");                                // Put some string
                 peer.Send(writer, DeliveryMethod.Unreliable);             // Send with reliability
             };
 
             listener.NetworkReceiveEvent += (fromPeer, dataReader, deliveryMethod) =>
             {
-                Console.WriteLine("Server got: {0}", dataReader.GetString(100 /* max length of string */));
+                var move = dataReader.Get<PlayerMovePacket>();
+                Console.WriteLine($"Received move request: {move}");
                 dataReader.Recycle();
+
+                NetDataWriter writer = new NetDataWriter();                 // Create writer class
+                writer.Put($"You moved to {move}!");                                // Put some string
+                fromPeer.Send(writer, DeliveryMethod.Unreliable);   
             };
+
+            server.Start(9050 /* port */);
 
             while (!Console.KeyAvailable)
             {
                 server.PollEvents();
                 Thread.Sleep(15);
             }
+
             server.Stop();
         }
     }
