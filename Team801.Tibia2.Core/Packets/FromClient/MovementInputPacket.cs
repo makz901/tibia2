@@ -2,7 +2,7 @@
 using Team801.Tibia2.Core.Extensions;
 using UnityEngine;
 
-namespace Team801.Tibia2.Core.Packets
+namespace Team801.Tibia2.Core.Packets.FromClient
 {
     public class MovementInputPacket : INetSerializable
     {

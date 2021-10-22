@@ -6,7 +6,8 @@ using LiteNetLib;
 using LiteNetLib.Utils;
 using Team801.Tibia2.Core.Configuration;
 using Team801.Tibia2.Core.Models;
-using Team801.Tibia2.Core.Packets;
+using Team801.Tibia2.Core.Packets.FromClient;
+using Team801.Tibia2.Core.Packets.FromServer;
 using UnityEngine;
 
 namespace Team801.Tibia2.Server
@@ -51,7 +52,7 @@ namespace Team801.Tibia2.Server
             var newPlayer = new Player 
             {
                 Peer = peer,
-                State = new PlayerStatePacket
+                State = new PlayerState
                 {
                     Pid = peer.Id,
                     Position = Vector2.zero
@@ -61,7 +62,7 @@ namespace Team801.Tibia2.Server
 
             _players[peer.Id] = newPlayer;
 
-            SendPacket(new JoinAcceptedPacket { PlayerStatePacket = newPlayer.State }, peer, DeliveryMethod.ReliableOrdered);
+            SendPacket(new JoinAcceptedPacket { PlayerState = newPlayer.State }, peer, DeliveryMethod.ReliableOrdered);
         }
 
         public void OnFrameUpdated() => _instance?.PollEvents();

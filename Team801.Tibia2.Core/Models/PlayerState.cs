@@ -2,9 +2,9 @@ using LiteNetLib.Utils;
 using Team801.Tibia2.Core.Extensions;
 using UnityEngine;
 
-namespace Team801.Tibia2.Core.Packets
+namespace Team801.Tibia2.Core.Models
 {
-    public struct PlayerStatePacket : INetSerializable 
+    public struct PlayerState : INetSerializable 
     {
         public int Pid;
         public Vector2 Position;

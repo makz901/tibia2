@@ -1,5 +1,4 @@
 using LiteNetLib;
-using Team801.Tibia2.Core.Packets;
 
 namespace Team801.Tibia2.Core.Models
 {
@@ -7,6 +6,6 @@ namespace Team801.Tibia2.Core.Models
     {
         public NetPeer Peer;
         public string Username;
-        public PlayerStatePacket State;
+        public PlayerState State;
     }
 }

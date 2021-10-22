@@ -5,7 +5,8 @@ using LiteNetLib;
 using LiteNetLib.Utils;
 using Team801.Tibia2.Core.Configuration;
 using Team801.Tibia2.Core.Models;
-using Team801.Tibia2.Core.Packets;
+using Team801.Tibia2.Core.Packets.FromClient;
+using Team801.Tibia2.Core.Packets.FromServer;
 
 namespace Team801.Tibia2.Client
 {
@@ -51,8 +52,8 @@ namespace Team801.Tibia2.Client
 
         private void OnJoinAccept(JoinAcceptedPacket packet)
         {
-            Console.WriteLine($"Join accepted by server (pid: {packet.PlayerStatePacket.Pid})");
-            _player.State = packet.PlayerStatePacket;
+            Console.WriteLine($"Join accepted by server (pid: {packet.PlayerState.Pid})");
+            _player.State = packet.PlayerState;
         }
 
         public void OnPeerConnected(NetPeer peer)

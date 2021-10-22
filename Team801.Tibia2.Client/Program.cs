@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using LiteNetLib;
 
 namespace Team801.Tibia2.Client
 {

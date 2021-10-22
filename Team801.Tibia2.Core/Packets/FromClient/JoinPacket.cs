@@ -1,4 +1,4 @@
-namespace Team801.Tibia2.Core.Packets
+namespace Team801.Tibia2.Core.Packets.FromClient
 {
     public class JoinPacket
     {
