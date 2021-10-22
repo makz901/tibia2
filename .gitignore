@@ -364,6 +364,8 @@ FodyWeavers.xsd
 
 # ---------------------------------------- jetbrains ------------------------------------------
 # Common IntelliJ Platform excludes
+**/.idea/**
+**/.idea.**/**
 
 # User specific
 **/.idea/**/workspace.xml
