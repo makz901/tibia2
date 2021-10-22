@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using LiteNetLib;
-using LiteNetLib.Utils;
 using Team801.Tibia2.Core.Configuration;
 using Team801.Tibia2.Core.Models;
 using Team801.Tibia2.Core.Packets.FromClient;
@@ -14,17 +13,13 @@ namespace Team801.Tibia2.Server
 {
     public class Server : INetEventListener
     {
-        private readonly Dictionary<int, Player> _players = new Dictionary<int, Player>();
-
         private readonly NetManager _instance;
-        private readonly NetDataWriter _writer;
-        private readonly NetPacketProcessor _packetProcessor;
+        private readonly Dictionary<int, Player> _players = new Dictionary<int, Player>();
+        private readonly PacketProcessor _packetProcessor = new PacketProcessor();
 
         public Server()
         {
             _instance = new NetManager(this) {AutoRecycle = true};
-            _writer = new NetDataWriter();
-            _packetProcessor = new PacketProcessor();
         }
 
         public void Start()
@@ -32,17 +27,22 @@ namespace Team801.Tibia2.Server
             Console.WriteLine("Starting server");
 
             _packetProcessor.SubscribeReusable<JoinPacket, NetPeer>(OnJoinReceived);
+            _packetProcessor.SubscribeReusable<MovePlayerPacket, NetPeer>(OnPlayerMovementReceived);
 
             _instance.Start(12345);
         }
 
-        private void SendPacket<T>(T packet, NetPeer peer, DeliveryMethod deliveryMethod) where T : class, new()
+        private void OnPlayerMovementReceived(MovePlayerPacket input, NetPeer peer)
         {
-            if (peer == null) return;
+            Console.WriteLine($"Received movement input {input.Direction} (pid: {peer.Id})");
 
-            _writer.Reset();
-            _packetProcessor.Write(_writer, packet);
-            peer.Send(_writer, deliveryMethod);
+            if (_players.TryGetValue(peer.Id, out var player))
+            {
+                input.Direction.Normalize();
+                player.State.Position += input.Direction;
+
+                _packetProcessor.SendTo(peer, new PlayerMovedPacket { PositionState = player.State });
+            }
         }
 
         private void OnJoinReceived(JoinPacket packet, NetPeer peer)
@@ -52,7 +52,7 @@ namespace Team801.Tibia2.Server
             var newPlayer = new Player 
             {
                 Peer = peer,
-                State = new PlayerState
+                State = new PositionState
                 {
                     Pid = peer.Id,
                     Position = Vector2.zero
@@ -62,7 +62,7 @@ namespace Team801.Tibia2.Server
 
             _players[peer.Id] = newPlayer;
 
-            SendPacket(new JoinAcceptedPacket { PlayerState = newPlayer.State }, peer, DeliveryMethod.ReliableOrdered);
+            _packetProcessor.SendTo(peer, new JoinAcceptedPacket { PositionState = newPlayer.State });
         }
 
         public void OnFrameUpdated() => _instance?.PollEvents();
