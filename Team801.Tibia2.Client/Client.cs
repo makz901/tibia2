@@ -46,14 +46,14 @@ namespace Team801.Tibia2.Client
 
         private void OnPlayerMoved(PlayerMovedPacket packet)
         {
-            Console.WriteLine($"You moved to a new position {packet.PositionState.Position}");
-            Player.State = packet.PositionState;
+            Console.WriteLine($"Player [{packet.PlayerName}] moved to a new position {packet.PlayerState.Position}");
+            Player.State = packet.PlayerState;
         }
 
         private void OnJoinAccepted(JoinAcceptedPacket packet)
         {
             Console.WriteLine($"Join accepted by server");
-            Player.State = packet.PositionState;
+            Player.State = packet.PlayerState;
         }
 
         public void OnPeerConnected(NetPeer peer)

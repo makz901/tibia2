@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Team801.Tibia2.Core.Models
 {
-    public struct PositionState : INetSerializable 
+    public struct PlayerState : INetSerializable 
     {
         public int Pid;
         public Vector2 Position;

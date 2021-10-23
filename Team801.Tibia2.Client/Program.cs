@@ -9,7 +9,8 @@ namespace Team801.Tibia2.Client
         static void Main(string[] args)
         {
             var client = new Client();
-            client.Connect("makz");
+            Console.WriteLine("What's your name:");
+            client.Connect(Console.ReadLine());
 
             ConsoleKeyInfo info;
 

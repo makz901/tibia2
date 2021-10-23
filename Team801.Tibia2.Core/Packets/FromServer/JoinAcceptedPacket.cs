@@ -4,6 +4,6 @@ namespace Team801.Tibia2.Core.Packets.FromServer
 {
     public class JoinAcceptedPacket
     {
-        public PositionState PositionState { get; set; }
+        public PlayerState PlayerState { get; set; }
     }
 }

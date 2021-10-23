@@ -4,6 +4,7 @@ namespace Team801.Tibia2.Core.Packets.FromServer
 {
     public class PlayerMovedPacket
     {
-        public PositionState PositionState { get; set; }
+        public string PlayerName { get; set; }
+        public PlayerState PlayerState { get; set; }
     }
 }

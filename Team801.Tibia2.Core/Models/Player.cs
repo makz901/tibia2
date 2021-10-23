@@ -6,6 +6,6 @@ namespace Team801.Tibia2.Core.Models
     {
         public NetPeer Peer;
         public string Username;
-        public PositionState State;
+        public PlayerState State;
     }
 }

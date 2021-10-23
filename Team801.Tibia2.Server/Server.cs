@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using LiteNetLib;
@@ -41,7 +42,12 @@ namespace Team801.Tibia2.Server
                 input.Direction.Normalize();
                 player.State.Position += input.Direction;
 
-                _packetProcessor.SendTo(peer, new PlayerMovedPacket { PositionState = player.State });
+                var packet = new PlayerMovedPacket {PlayerState = player.State, PlayerName = player.Username};
+
+                foreach (var loggedPlayer in _players.Values.Where(x => (x.State.Position - player.State.Position).magnitude < 10))
+                {
+                    _packetProcessor.SendTo(loggedPlayer.Peer, packet);
+                }
             }
         }
 
@@ -52,7 +58,7 @@ namespace Team801.Tibia2.Server
             var newPlayer = new Player 
             {
                 Peer = peer,
-                State = new PositionState
+                State = new PlayerState
                 {
                     Pid = peer.Id,
                     Position = Vector2.zero
@@ -62,7 +68,7 @@ namespace Team801.Tibia2.Server
 
             _players[peer.Id] = newPlayer;
 
-            _packetProcessor.SendTo(peer, new JoinAcceptedPacket { PositionState = newPlayer.State });
+            _packetProcessor.SendTo(peer, new JoinAcceptedPacket { PlayerState = newPlayer.State });
         }
 
         public void OnFrameUpdated() => _instance?.PollEvents();
