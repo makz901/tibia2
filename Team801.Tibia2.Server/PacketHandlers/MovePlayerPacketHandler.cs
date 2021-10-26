@@ -1,6 +1,5 @@
 using System;
 using LiteNetLib;
-using Team801.Tibia2.Core.Configuration;
 using Team801.Tibia2.Core.PacketHandlers;
 using Team801.Tibia2.Core.Packets.FromClient;
 using Team801.Tibia2.Core.Packets.FromServer;
@@ -34,7 +33,7 @@ namespace Team801.Tibia2.Server.PacketHandlers
             if (player != null)
             {
                 input.Normalize();
-                player.State.Position += input * player.Attributes.Speed * (float) _gameTimer.FrameDeltaTime.TotalSeconds;
+                player.Move(input, (float) _gameTimer.FrameDeltaTime.TotalSeconds);
 
                 var movedPacket = new PlayerMovedPacket {PlayerState = player.State, PlayerName = player.Username};
 

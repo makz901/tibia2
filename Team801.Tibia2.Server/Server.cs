@@ -28,13 +28,15 @@ namespace Team801.Tibia2.Server
 
         public void Start()
         {
-            Console.WriteLine("Starting server");
+            Console.WriteLine("Starting server...");
 
             _processor = ServerConfig.IoC.Resolve<PacketProcessor>();
             _playerManager = ServerConfig.IoC.Resolve<IPlayerManager>();
             _gameTimer = ServerConfig.IoC.Resolve<IGameTimer>();
 
             _instance.Start(12345);
+
+            Console.WriteLine("Started!");
         }
 
         public void OnFrameUpdated()
