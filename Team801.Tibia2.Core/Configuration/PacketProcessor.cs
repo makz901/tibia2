@@ -7,8 +7,6 @@ namespace Team801.Tibia2.Core.Configuration
 {
     public class PacketProcessor : NetPacketProcessor
     {
-        private readonly NetDataWriter _writer = new NetDataWriter();
-
         public PacketProcessor()
         {
             RegisterNestedType((w, v) => w.Put(v), reader => reader.GetVector2());
