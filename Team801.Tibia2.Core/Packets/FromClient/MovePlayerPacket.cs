@@ -2,7 +2,7 @@
 
 namespace Team801.Tibia2.Core.Packets.FromClient
 {
-    public class MovePlayerPacket
+    public class MovePlayerPacket : BasePacket
     {
         public Vector2 Direction { get; set; }
 

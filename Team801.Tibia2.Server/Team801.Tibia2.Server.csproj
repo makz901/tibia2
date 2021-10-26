@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.3.0" />
     <PackageReference Include="LiteNetLib" Version="0.9.5.2" />
   </ItemGroup>
 

@@ -1,27 +1,34 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using Autofac;
 using LiteNetLib;
+using Team801.Tibia2.Client.Services.Contracts;
 using Team801.Tibia2.Core.Configuration;
-using Team801.Tibia2.Core.Models;
 using Team801.Tibia2.Core.Packets.FromClient;
-using Team801.Tibia2.Core.Packets.FromServer;
 using UnityEngine;
+using Container = Team801.Tibia2.Client.Configuration.Container;
 
 namespace Team801.Tibia2.Client
 {
     public class Client : INetEventListener
     {
         private readonly NetManager _instance;
-        private readonly PacketProcessor _packetProcessor = new PacketProcessor();
+        private readonly PacketProcessor _packetProcessor;
 
         private NetPeer _server;
 
-        public Player Player { get; } = new Player();
+        public IPlayerManager PlayerManager { get; }
 
         public Client()
         {
             _instance = new NetManager(this) {AutoRecycle = true};
+
+            Container.Build();
+            Container.SetupHandlers();
+
+            PlayerManager = Container.Instance.Resolve<IPlayerManager>();
+            _packetProcessor = Container.Instance.Resolve<PacketProcessor>();
         }
 
         public void OnFrameUpdated() => _instance.PollEvents();
@@ -30,10 +37,7 @@ namespace Team801.Tibia2.Client
         {
             Console.WriteLine("Connecting to server...");
 
-            Player.Username = username;
-
-            _packetProcessor.SubscribeReusable<JoinAcceptedPacket>(OnJoinAccepted);
-            _packetProcessor.SubscribeReusable<PlayerMovedPacket>(OnPlayerMoved);
+            PlayerManager.Player.Username = username;
 
             _instance.Start();
             _instance.Connect("localhost", 12345, "");
@@ -44,23 +48,11 @@ namespace Team801.Tibia2.Client
             _packetProcessor.SendTo(_server, new MovePlayerPacket { Direction = direction });
         }
 
-        private void OnPlayerMoved(PlayerMovedPacket packet)
-        {
-            Console.WriteLine($"Player [{packet.PlayerName}] moved to a new position {packet.PlayerState.Position}");
-            Player.State = packet.PlayerState;
-        }
-
-        private void OnJoinAccepted(JoinAcceptedPacket packet)
-        {
-            Console.WriteLine($"Join accepted by server");
-            Player.State = packet.PlayerState;
-        }
-
         public void OnPeerConnected(NetPeer peer)
         {
             _server = peer;
 
-            _packetProcessor.SendTo(_server, new JoinPacket { Username = Player.Username });
+            _packetProcessor.SendTo(_server, new JoinPacket { Username = PlayerManager.Player.Username });
         }
 
         public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
