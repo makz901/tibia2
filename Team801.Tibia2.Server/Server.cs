@@ -4,8 +4,8 @@ using System.Net.Sockets;
 using Autofac;
 using LiteNetLib;
 using Team801.Tibia2.Core.Configuration;
+using Team801.Tibia2.Server.Configuration;
 using Team801.Tibia2.Server.Services.Contracts;
-using Container = Team801.Tibia2.Server.Configuration.Container;
 
 namespace Team801.Tibia2.Server
 {
@@ -18,18 +18,17 @@ namespace Team801.Tibia2.Server
 
         public Server()
         {
-            _instance = new NetManager(this) {AutoRecycle = true};
+            ServerConfig.Build();
 
-            Container.Build();
-            Container.SetupHandlers();
+            _instance = new NetManager(this) {AutoRecycle = true};
         }
 
         public void Start()
         {
             Console.WriteLine("Starting server");
 
-            _processor = Container.Instance.Resolve<PacketProcessor>();
-            _playerManager = Container.Instance.Resolve<IPlayerManager>();
+            _processor = ServerConfig.IoC.Resolve<PacketProcessor>();
+            _playerManager = ServerConfig.IoC.Resolve<IPlayerManager>();
 
             _instance.Start(12345);
         }

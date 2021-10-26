@@ -3,11 +3,11 @@ using System.Net;
 using System.Net.Sockets;
 using Autofac;
 using LiteNetLib;
+using Team801.Tibia2.Client.Configuration;
 using Team801.Tibia2.Client.Services.Contracts;
 using Team801.Tibia2.Core.Configuration;
 using Team801.Tibia2.Core.Packets.FromClient;
 using UnityEngine;
-using Container = Team801.Tibia2.Client.Configuration.Container;
 
 namespace Team801.Tibia2.Client
 {
@@ -22,13 +22,12 @@ namespace Team801.Tibia2.Client
 
         public Client()
         {
+            ClientConfig.Build();
+
             _instance = new NetManager(this) {AutoRecycle = true};
 
-            Container.Build();
-            Container.SetupHandlers();
-
-            PlayerManager = Container.Instance.Resolve<IPlayerManager>();
-            _packetProcessor = Container.Instance.Resolve<PacketProcessor>();
+            PlayerManager = ClientConfig.IoC.Resolve<IPlayerManager>();
+            _packetProcessor = ClientConfig.IoC.Resolve<PacketProcessor>();
         }
 
         public void OnFrameUpdated() => _instance.PollEvents();
