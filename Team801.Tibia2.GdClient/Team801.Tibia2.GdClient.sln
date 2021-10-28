@@ -1,0 +1,35 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Team801.Tibia2.GdClient", "Team801.Tibia2.GdClient.csproj", "{0CACD813-CA17-415B-8B64-5A7CE64E309D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Team801.Tibia2.Common", "..\Team801.Tibia2.Common\Team801.Tibia2.Common.csproj", "{8A368E4E-3AA4-490B-B70F-10F5E646AC52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Team801.Tibia2.Client", "..\Team801.Tibia2.Client\Team801.Tibia2.Client.csproj", "{95E21147-3CCE-4378-805F-5FC051D3FBE8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0CACD813-CA17-415B-8B64-5A7CE64E309D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CACD813-CA17-415B-8B64-5A7CE64E309D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CACD813-CA17-415B-8B64-5A7CE64E309D}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{0CACD813-CA17-415B-8B64-5A7CE64E309D}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{0CACD813-CA17-415B-8B64-5A7CE64E309D}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{0CACD813-CA17-415B-8B64-5A7CE64E309D}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{8A368E4E-3AA4-490B-B70F-10F5E646AC52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A368E4E-3AA4-490B-B70F-10F5E646AC52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A368E4E-3AA4-490B-B70F-10F5E646AC52}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A368E4E-3AA4-490B-B70F-10F5E646AC52}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{8A368E4E-3AA4-490B-B70F-10F5E646AC52}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A368E4E-3AA4-490B-B70F-10F5E646AC52}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+		{95E21147-3CCE-4378-805F-5FC051D3FBE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95E21147-3CCE-4378-805F-5FC051D3FBE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95E21147-3CCE-4378-805F-5FC051D3FBE8}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95E21147-3CCE-4378-805F-5FC051D3FBE8}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{95E21147-3CCE-4378-805F-5FC051D3FBE8}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{95E21147-3CCE-4378-805F-5FC051D3FBE8}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+EndGlobal
