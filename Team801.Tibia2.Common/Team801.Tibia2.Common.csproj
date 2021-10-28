@@ -10,6 +10,8 @@
     <None Remove="Models\" />
     <None Remove="PacketHandlers\" />
     <None Remove="Packets\" />
+    <None Remove="LiteNetLib.NetStandard" />
+    <None Remove="LiteNetLib" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configuration\" />
@@ -20,7 +22,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.3.0" />
-    <PackageReference Include="LiteNetLib" Version="0.9.5.2" />
     <PackageReference Include="Unity3D.SDK" Version="2021.1.14.1" />
+    <PackageReference Include="LiteNetLib" Version="0.9.5.2" />
   </ItemGroup>
 </Project>
