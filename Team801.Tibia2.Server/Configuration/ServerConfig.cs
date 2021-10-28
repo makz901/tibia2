@@ -1,7 +1,7 @@
 using Autofac;
-using Team801.Tibia2.Core.Configuration;
-using Team801.Tibia2.Core.Extensions;
-using Team801.Tibia2.Core.Packets.FromClient;
+using Team801.Tibia2.Common.Configuration;
+using Team801.Tibia2.Common.Extensions;
+using Team801.Tibia2.Common.Packets.FromClient;
 using Team801.Tibia2.Server.PacketHandlers;
 using Team801.Tibia2.Server.Services;
 using Team801.Tibia2.Server.Services.Contracts;

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Team801.Tibia2.Core.Models;
+using Team801.Tibia2.Common.Models;
 using UnityEngine;
 
 namespace Team801.Tibia2.Server.Services.Contracts

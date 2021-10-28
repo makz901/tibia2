@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using Autofac;
 using LiteNetLib;
-using Team801.Tibia2.Core.Configuration;
+using Team801.Tibia2.Common.Configuration;
 using Team801.Tibia2.Server.Configuration;
 using Team801.Tibia2.Server.Services.Contracts;
 
@@ -11,6 +11,8 @@ namespace Team801.Tibia2.Server
 {
     public class Server : INetEventListener
     {
+        private const int Port = 12345;
+
         private readonly NetManager _instance;
 
         private PacketProcessor _processor;
@@ -34,9 +36,9 @@ namespace Team801.Tibia2.Server
             _playerManager = ServerConfig.IoC.Resolve<IPlayerManager>();
             _gameTimer = ServerConfig.IoC.Resolve<IGameTimer>();
 
-            _instance.Start(12345);
+            _instance.Start(Port);
 
-            Console.WriteLine("Started!");
+            Console.WriteLine($"Listening on port: {Port}");
         }
 
         public void OnFrameUpdated()

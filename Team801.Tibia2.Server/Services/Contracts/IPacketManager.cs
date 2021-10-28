@@ -1,5 +1,5 @@
 using LiteNetLib;
-using Team801.Tibia2.Core.Packets;
+using Team801.Tibia2.Common.Packets;
 
 namespace Team801.Tibia2.Server.Services.Contracts
 {

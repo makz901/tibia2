@@ -1,9 +1,9 @@
 using Autofac;
 using Team801.Tibia2.Client.PacketHandlers;
 using Team801.Tibia2.Client.Services.Contracts;
-using Team801.Tibia2.Core.Configuration;
-using Team801.Tibia2.Core.Extensions;
-using Team801.Tibia2.Core.Packets.FromServer;
+using Team801.Tibia2.Common.Configuration;
+using Team801.Tibia2.Common.Extensions;
+using Team801.Tibia2.Common.Packets.FromServer;
 
 namespace Team801.Tibia2.Client.Configuration
 {

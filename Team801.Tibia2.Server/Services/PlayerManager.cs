@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Team801.Tibia2.Core.Models;
+using Team801.Tibia2.Common.Models;
 using Team801.Tibia2.Server.Services.Contracts;
 using UnityEngine;
 

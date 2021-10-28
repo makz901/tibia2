@@ -1,8 +1,8 @@
 using System;
 using LiteNetLib;
-using Team801.Tibia2.Core.PacketHandlers;
-using Team801.Tibia2.Core.Packets.FromClient;
-using Team801.Tibia2.Core.Packets.FromServer;
+using Team801.Tibia2.Common.PacketHandlers;
+using Team801.Tibia2.Common.Packets.FromClient;
+using Team801.Tibia2.Common.Packets.FromServer;
 using Team801.Tibia2.Server.Services.Contracts;
 
 namespace Team801.Tibia2.Server.PacketHandlers

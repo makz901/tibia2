@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Team801.Tibia2.Server", "Team801.Tibia2.Server\Team801.Tibia2.Server.csproj", "{F9D93000-4C71-43DB-9750-7FBA478B35A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Team801.Tibia2.Core", "Team801.Tibia2.Core\Team801.Tibia2.Core.csproj", "{FF781B9D-E246-43BF-BBD5-4CE2B9F57A9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Team801.Tibia2.Common", "Team801.Tibia2.Common\Team801.Tibia2.Common.csproj", "{47CC07F4-5D53-477D-8649-7FD2FC5DB361}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Team801.Tibia2.Client", "Team801.Tibia2.Client\Team801.Tibia2.Client.csproj", "{B05FE3ED-9A81-4BBD-B50F-CE5BEA7E61B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Team801.Tibia2.ConsoleClient", "Team801.Tibia2.ConsoleClient\Team801.Tibia2.ConsoleClient.csproj", "{AB2EC703-28F2-4042-9B93-355BA438E033}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Team801.Tibia2.Client", "Team801.Tibia2.Client\Team801.Tibia2.Client.csproj", "{C6B6673D-DFD0-4C5B-9FB5-6A1E1DFF2380}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +21,18 @@ Global
 		{F9D93000-4C71-43DB-9750-7FBA478B35A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9D93000-4C71-43DB-9750-7FBA478B35A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9D93000-4C71-43DB-9750-7FBA478B35A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF781B9D-E246-43BF-BBD5-4CE2B9F57A9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF781B9D-E246-43BF-BBD5-4CE2B9F57A9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF781B9D-E246-43BF-BBD5-4CE2B9F57A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF781B9D-E246-43BF-BBD5-4CE2B9F57A9D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B05FE3ED-9A81-4BBD-B50F-CE5BEA7E61B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B05FE3ED-9A81-4BBD-B50F-CE5BEA7E61B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B05FE3ED-9A81-4BBD-B50F-CE5BEA7E61B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B05FE3ED-9A81-4BBD-B50F-CE5BEA7E61B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47CC07F4-5D53-477D-8649-7FD2FC5DB361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47CC07F4-5D53-477D-8649-7FD2FC5DB361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47CC07F4-5D53-477D-8649-7FD2FC5DB361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47CC07F4-5D53-477D-8649-7FD2FC5DB361}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB2EC703-28F2-4042-9B93-355BA438E033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB2EC703-28F2-4042-9B93-355BA438E033}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB2EC703-28F2-4042-9B93-355BA438E033}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB2EC703-28F2-4042-9B93-355BA438E033}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6B6673D-DFD0-4C5B-9FB5-6A1E1DFF2380}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6B6673D-DFD0-4C5B-9FB5-6A1E1DFF2380}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6B6673D-DFD0-4C5B-9FB5-6A1E1DFF2380}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6B6673D-DFD0-4C5B-9FB5-6A1E1DFF2380}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

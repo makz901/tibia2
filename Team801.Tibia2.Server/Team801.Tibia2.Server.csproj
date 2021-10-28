@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Team801.Tibia2.Core\Team801.Tibia2.Core.csproj" />
+    <ProjectReference Include="..\Team801.Tibia2.Common\Team801.Tibia2.Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-using Team801.Tibia2.Core.Models;
+using Team801.Tibia2.Common.Models;
 
 namespace Team801.Tibia2.Client.Services.Contracts
 {

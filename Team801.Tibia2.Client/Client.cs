@@ -5,8 +5,8 @@ using Autofac;
 using LiteNetLib;
 using Team801.Tibia2.Client.Configuration;
 using Team801.Tibia2.Client.Services.Contracts;
-using Team801.Tibia2.Core.Configuration;
-using Team801.Tibia2.Core.Packets.FromClient;
+using Team801.Tibia2.Common.Configuration;
+using Team801.Tibia2.Common.Packets.FromClient;
 using UnityEngine;
 
 namespace Team801.Tibia2.Client
