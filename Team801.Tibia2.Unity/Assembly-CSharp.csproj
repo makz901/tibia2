@@ -56,8 +56,8 @@
     <Compile Include="Assets/Scripts/MainApp.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets/Team801.Tibia2.Common.dll" />
-    <None Include="Assets/Team801.Tibia2.Client.dll" />
+    <None Include="Assets/Libs/Team801.Tibia2.Client.dll" />
+    <None Include="Assets/Libs/Team801.Tibia2.Common.dll" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -283,10 +283,10 @@
       <HintPath>/Applications/Unity/Hub/Editor/2020.3.20f1/Unity.app/Contents/Managed/UnityEngine/UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
     <Reference Include="Team801.Tibia2.Client">
-      <HintPath>Assets/Team801.Tibia2.Client.dll</HintPath>
+      <HintPath>Assets/Libs/Team801.Tibia2.Client.dll</HintPath>
     </Reference>
     <Reference Include="Team801.Tibia2.Common">
-      <HintPath>Assets/Team801.Tibia2.Common.dll</HintPath>
+      <HintPath>Assets/Libs/Team801.Tibia2.Common.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>/Applications/Unity/Hub/Editor/2020.3.20f1/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
