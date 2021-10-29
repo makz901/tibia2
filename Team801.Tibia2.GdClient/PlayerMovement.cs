@@ -7,6 +7,7 @@ namespace Team801.Tibia2.GdClient
 		private const int Speed = 100;
 
 		private Client.Client _client;
+		private Vector2 _serverPosition;
 
 		// Called when the node enters the scene tree for the first time.
 		public override void _Ready()
@@ -14,7 +15,14 @@ namespace Team801.Tibia2.GdClient
 			_client = new Client.Client();
 			_client.Connect("GD Makz");
 
+			_client.PlayerManager.PositionChanged += PlayerManagerOnPositionChanged;
+
 			GD.Print("-> connecting to server...");
+		}
+
+		private void PlayerManagerOnPositionChanged(System.Numerics.Vector2 pos)
+		{
+			_serverPosition = new Vector2(pos.X, pos.Y);
 		}
 
 		// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,11 +33,19 @@ namespace Team801.Tibia2.GdClient
 			var input = GetInputVector().Normalized();
 			if (input.Length() > 0)
 			{
-				Position += input * delta * Speed;
+				//simple prediction
+				_client.PlayerManager.Player.Move(new System.Numerics.Vector2(input.x, input.y), delta);
+				var calcPos = _client.PlayerManager.Player.State.Position;
+				Position = new Vector2(calcPos.X, calcPos.Y);
+				// end
+
 				_client.Move(new System.Numerics.Vector2(input.x, input.y));
 
 				GD.Print($"-> processing input: {input}");
 			}
+
+			// server position update
+			Position = _serverPosition;
 		}
 
 		private Vector2 GetInputVector()

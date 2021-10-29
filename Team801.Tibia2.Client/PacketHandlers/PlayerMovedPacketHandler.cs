@@ -20,6 +20,9 @@ namespace Team801.Tibia2.Client.PacketHandlers
         {
             Console.WriteLine($"Player [{packet.PlayerName}] moved to a new position {packet.PlayerState.Position}");
             _playerManager.Player.State = packet.PlayerState;
+
+            //todo: introduce nice service/events
+            _playerManager.OnPositionChanged(packet.PlayerState.Position);
         }
     }
 }
