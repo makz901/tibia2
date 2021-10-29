@@ -1,5 +1,5 @@
+using System.Numerics;
 using LiteNetLib;
-using UnityEngine;
 
 namespace Team801.Tibia2.Common.Models
 {
@@ -10,9 +10,9 @@ namespace Team801.Tibia2.Common.Models
         public PlayerState State;
         public PlayerAttributes Attributes = new PlayerAttributes();
 
-        public void Move(Vector2 input, float deltaTime)
+        public void Move(Vector2 input, double deltaTime)
         {
-            State.Position += input * Attributes.Speed * deltaTime;
+            State.Position += input * Attributes.Speed * (float) deltaTime;
         }
     }
 }

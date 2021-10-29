@@ -1,11 +1,11 @@
 using System;
+using System.Numerics;
 using LiteNetLib;
 using Team801.Tibia2.Common.Models;
 using Team801.Tibia2.Common.PacketHandlers;
 using Team801.Tibia2.Common.Packets.FromClient;
 using Team801.Tibia2.Common.Packets.FromServer;
 using Team801.Tibia2.Server.Services.Contracts;
-using UnityEngine;
 
 namespace Team801.Tibia2.Server.PacketHandlers
 {
@@ -32,7 +32,7 @@ namespace Team801.Tibia2.Server.PacketHandlers
                 State = new PlayerState
                 {
                     Pid = peer.Id,
-                    Position = Vector2.zero
+                    Position = Vector2.Zero
                 },
                 Username = packet.Username
             };

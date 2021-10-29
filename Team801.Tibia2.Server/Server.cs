@@ -43,7 +43,7 @@ namespace Team801.Tibia2.Server
 
         public void OnFrameUpdated()
         {
-            _gameTimer.FrameDeltaTime = DateTime.Now - _lastUpdateTime;
+            _gameTimer.FrameDelta = (DateTime.Now - _lastUpdateTime).TotalSeconds;
             _instance?.PollEvents();
             _lastUpdateTime = DateTime.Now;
         }

@@ -1,4 +1,3 @@
-using System;
 using Godot;
 
 namespace Team801.Tibia2.GdClient
@@ -21,11 +20,13 @@ namespace Team801.Tibia2.GdClient
 		// Called every frame. 'delta' is the elapsed time since the previous frame.
 		public override void _Process(float delta)
 		{
+			_client.OnFrameUpdated();
+
 			var input = GetInputVector().Normalized();
 			if (input.Length() > 0)
 			{
 				Position += input * delta * Speed;
-				_client.Move(new UnityEngine.Vector2(input.x, input.y));
+				_client.Move(new System.Numerics.Vector2(input.x, input.y));
 
 				GD.Print($"-> processing input: {input}");
 			}

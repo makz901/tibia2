@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Numerics;
 using System.Threading;
-using UnityEngine;
 
 namespace Team801.Tibia2.ConsoleClient
 {
@@ -32,16 +32,16 @@ namespace Team801.Tibia2.ConsoleClient
             switch (key)
             {
                 case ConsoleKey.UpArrow:
-                    client.Move(Vector2.up);
+                    client.Move(Vector2.UnitY);
                     break;
                 case ConsoleKey.DownArrow:
-                    client.Move(Vector2.down);
+                    client.Move(-Vector2.UnitY);
                     break;
                 case ConsoleKey.LeftArrow:
-                    client.Move(Vector2.left);
+                    client.Move(-Vector2.UnitX);
                     break;
                 case ConsoleKey.RightArrow:
-                    client.Move(Vector2.right);
+                    client.Move(Vector2.UnitX);
                     break;
             }
         }

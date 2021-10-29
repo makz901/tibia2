@@ -12,8 +12,7 @@
           "Autofac": "6.3.0",
           "LiteNetLib": "0.9.5.2",
           "NETStandard.Library": "2.0.3",
-          "Team801.Tibia2.Common": "1.0.0",
-          "Unity3D.SDK": "2021.1.14.1"
+          "Team801.Tibia2.Common": "1.0.0"
         },
         "runtime": {
           "Team801.Tibia2.Client.dll": {}
@@ -430,23 +429,10 @@
           }
         }
       },
-      "Unity3D.SDK/2021.1.14.1": {
-        "runtime": {
-          "lib/UnityEditor.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          },
-          "lib/UnityEngine.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
       "Team801.Tibia2.Common/1.0.0": {
         "dependencies": {
           "Autofac": "6.3.0",
-          "LiteNetLib": "0.9.5.2",
-          "Unity3D.SDK": "2021.1.14.1"
+          "LiteNetLib": "0.9.5.2"
         },
         "runtime": {
           "Team801.Tibia2.Common.dll": {}
@@ -753,13 +739,6 @@
       "sha512": "sha512-k/+g4b7vjdd4aix83sTgC9VG6oXYKAktSfNIJUNGxPEj7ryEOfzHHhfnmsZvjxawwcD9HyWXKCXmPjX8U4zeSw==",
       "path": "system.threading.threadpool/4.3.0",
       "hashPath": "system.threading.threadpool.4.3.0.nupkg.sha512"
-    },
-    "Unity3D.SDK/2021.1.14.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-t5wm+eCp4HvhSiAmH2lASj82QobnZe0uEwZyd+RreN4bRqB6x2kSK4uvu213TQrtMeDi+HB015wWWu2VnKpEIQ==",
-      "path": "unity3d.sdk/2021.1.14.1",
-      "hashPath": "unity3d.sdk.2021.1.14.1.nupkg.sha512"
     },
     "Team801.Tibia2.Common/1.0.0": {
       "type": "project",

@@ -1,6 +1,6 @@
+using System.Numerics;
 using LiteNetLib.Utils;
 using Team801.Tibia2.Common.Extensions;
-using UnityEngine;
 
 namespace Team801.Tibia2.Common.Models
 {

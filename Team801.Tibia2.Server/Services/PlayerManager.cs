@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using Team801.Tibia2.Common.Models;
 using Team801.Tibia2.Server.Services.Contracts;
-using UnityEngine;
 
 namespace Team801.Tibia2.Server.Services
 {
@@ -27,7 +27,7 @@ namespace Team801.Tibia2.Server.Services
 
         public IEnumerable<Player> GetNearby(Vector2 position)
         {
-            return _players.Values.Where(x => (x.State.Position - position).magnitude < 10);
+            return _players.Values.Where(x => (x.State.Position - position).Length() < 10);
         }
     }
 }

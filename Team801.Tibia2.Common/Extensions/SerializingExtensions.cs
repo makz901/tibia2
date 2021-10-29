@@ -1,5 +1,5 @@
+using System.Numerics;
 using LiteNetLib.Utils;
-using UnityEngine;
 
 namespace Team801.Tibia2.Common.Extensions
 {
@@ -7,8 +7,8 @@ namespace Team801.Tibia2.Common.Extensions
     {
         public static void Put(this NetDataWriter writer, Vector2 vector)
         {
-            writer.Put(vector.x);
-            writer.Put(vector.y);
+            writer.Put(vector.X);
+            writer.Put(vector.Y);
         }
 
         public static Vector2 GetVector2(this NetDataReader reader)
