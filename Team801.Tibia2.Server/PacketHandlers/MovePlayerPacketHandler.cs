@@ -1,5 +1,4 @@
 using System;
-using System.Numerics;
 using LiteNetLib;
 using Team801.Tibia2.Common.PacketHandlers;
 using Team801.Tibia2.Common.Packets.FromClient;
@@ -33,8 +32,7 @@ namespace Team801.Tibia2.Server.PacketHandlers
             var player = _playerManager.Get(peer.Id);
             if (player != null)
             {
-                input = Vector2.Normalize(input);
-                player.Move(input, _gameTimer.FrameDelta);
+                player.Move(input.Normalized(), _gameTimer.FrameDelta);
 
                 var movedPacket = new PlayerMovedPacket {PlayerState = player.State, PlayerName = player.Username};
 

@@ -20,9 +20,9 @@ namespace Team801.Tibia2.GdClient
 			GD.Print("-> connecting to server...");
 		}
 
-		private void PlayerManagerOnPositionChanged(System.Numerics.Vector2 pos)
+		private void PlayerManagerOnPositionChanged(Vector2 pos)
 		{
-			_serverPosition = new Vector2(pos.X, pos.Y);
+			_serverPosition = pos;
 		}
 
 		// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -34,12 +34,12 @@ namespace Team801.Tibia2.GdClient
 			if (input.Length() > 0)
 			{
 				//simple prediction
-				_client.PlayerManager.Player.Move(new System.Numerics.Vector2(input.x, input.y), delta);
+				_client.PlayerManager.Player.Move(input, delta);
 				var calcPos = _client.PlayerManager.Player.State.Position;
-				Position = new Vector2(calcPos.X, calcPos.Y);
+				Position = calcPos;
 				// end
 
-				_client.Move(new System.Numerics.Vector2(input.x, input.y));
+				_client.Move(input);
 
 				GD.Print($"-> processing input: {input}");
 			}

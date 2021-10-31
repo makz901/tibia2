@@ -23,4 +23,9 @@
     <None Remove="LiteNetLib.NetStandard" />
     <None Remove="LiteNetLib" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="GodotSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\Team801.Tibia2.GdClient\.mono\assemblies\Debug\GodotSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

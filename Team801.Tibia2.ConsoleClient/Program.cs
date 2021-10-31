@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Numerics;
-using System.Threading;
+using Godot;
+using Thread = System.Threading.Thread;
 
 namespace Team801.Tibia2.ConsoleClient
 {
@@ -32,16 +32,16 @@ namespace Team801.Tibia2.ConsoleClient
             switch (key)
             {
                 case ConsoleKey.UpArrow:
-                    client.Move(Vector2.UnitY);
+                    client.Move(Vector2.Up);
                     break;
                 case ConsoleKey.DownArrow:
-                    client.Move(-Vector2.UnitY);
+                    client.Move(Vector2.Down);
                     break;
                 case ConsoleKey.LeftArrow:
-                    client.Move(-Vector2.UnitX);
+                    client.Move(Vector2.Left);
                     break;
                 case ConsoleKey.RightArrow:
-                    client.Move(Vector2.UnitX);
+                    client.Move(Vector2.Right);
                     break;
             }
         }
