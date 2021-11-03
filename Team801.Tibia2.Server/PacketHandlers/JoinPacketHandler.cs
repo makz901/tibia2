@@ -1,7 +1,7 @@
 using System;
 using Godot;
 using LiteNetLib;
-using Team801.Tibia2.Common.Models;
+using Team801.Tibia2.Common.Models.Creature;
 using Team801.Tibia2.Common.PacketHandlers;
 using Team801.Tibia2.Common.Packets.FromClient;
 using Team801.Tibia2.Common.Packets.FromServer;
@@ -22,24 +22,20 @@ namespace Team801.Tibia2.Server.PacketHandlers
             _playerManager = playerManager;
         }
 
-        public override void Handle(JoinPacket packet, NetPeer peer)
+        public override void Handle(JoinPacket packet, NetPeer peer = null)
         {
+            if (peer == null) throw new ArgumentNullException(nameof(peer));
+            
             Console.WriteLine($"Received join from {packet.Username} (pid: {peer.Id})");
 
             var newPlayer = new Player 
             {
-                Peer = peer,
-                State = new PlayerState
-                {
-                    Pid = peer.Id,
-                    Position = Vector2.Zero
-                },
-                Username = packet.Username
+                Name = packet.Username
             };
 
-            _playerManager.Add(newPlayer);
+            _playerManager.Add(peer, newPlayer);
 
-            _packetManager.QueuePacket(new JoinAcceptedPacket { PlayerState = newPlayer.State }, peer);
+            _packetManager.QueuePacket(new JoinAcceptedPacket { PlayerPosition = Vector2.Zero }, peer);
         }
     }
 }

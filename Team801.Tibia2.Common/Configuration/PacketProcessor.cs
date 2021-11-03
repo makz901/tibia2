@@ -10,7 +10,6 @@ namespace Team801.Tibia2.Common.Configuration
         public PacketProcessor()
         {
             RegisterNestedType((w, v) => w.Put(v), reader => reader.GetVector2());
-            RegisterNestedType<PlayerState>();
         }
 
         public void SendTo<T>(NetPeer peer, T packet, DeliveryMethod deliveryMethod = DeliveryMethod.Unreliable) where T : class, new()

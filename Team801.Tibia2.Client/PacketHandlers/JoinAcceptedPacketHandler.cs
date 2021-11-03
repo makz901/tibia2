@@ -8,18 +8,18 @@ namespace Team801.Tibia2.Client.PacketHandlers
 {
     public class JoinAcceptedPacketHandler : BasePacketHandler<JoinAcceptedPacket>
     {
-        private readonly IPlayerManager _playerManager;
+        private readonly IGameStateManager _gameStateManager;
 
         public JoinAcceptedPacketHandler(
-            IPlayerManager playerManager)
+            IGameStateManager gameStateManager)
         {
-            _playerManager = playerManager;
+            _gameStateManager = gameStateManager;
         }
 
         public override void Handle(JoinAcceptedPacket packet, NetPeer peer = null)
         {
             Console.WriteLine($"Join accepted by server");
-            _playerManager.Player.State = packet.PlayerState;
+            _gameStateManager.CurrentPlayer.Position = packet.PlayerPosition;
         }
     }
 }

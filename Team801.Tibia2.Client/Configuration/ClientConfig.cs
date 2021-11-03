@@ -1,5 +1,6 @@
 using Autofac;
 using Team801.Tibia2.Client.PacketHandlers;
+using Team801.Tibia2.Client.Services;
 using Team801.Tibia2.Client.Services.Contracts;
 using Team801.Tibia2.Common.Configuration;
 using Team801.Tibia2.Common.Extensions;
@@ -11,9 +12,12 @@ namespace Team801.Tibia2.Client.Configuration
     {
         public static IContainer IoC { get; private set; }
 
-        public static void Build()
+        public static void Build(Client client)
         {
             var containerBuilder = new ContainerBuilder();
+            var clientNetManager = new ClientNetManager(client) {AutoRecycle = true};
+
+            containerBuilder.RegisterInstance(clientNetManager).As<ClientNetManager>().SingleInstance();
 
             RegisterServices(containerBuilder);
             RegisterHandlers(containerBuilder);
@@ -23,9 +27,9 @@ namespace Team801.Tibia2.Client.Configuration
 
         private static void RegisterServices(ContainerBuilder containerBuilder)
         {
-            containerBuilder.RegisterType<PacketProcessor>().SingleInstance();
+            containerBuilder.RegisterType<GameStateManager>().As<IGameStateManager>().SingleInstance();
 
-            containerBuilder.RegisterType<PlayerManager>().As<IPlayerManager>().SingleInstance();
+            containerBuilder.RegisterType<PacketProcessor>().SingleInstance();
         }
 
         private static void RegisterHandlers(ContainerBuilder containerBuilder)

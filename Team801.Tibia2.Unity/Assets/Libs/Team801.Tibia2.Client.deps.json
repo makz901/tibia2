@@ -12,7 +12,8 @@
           "Autofac": "6.3.0",
           "LiteNetLib": "0.9.5.2",
           "NETStandard.Library": "2.0.3",
-          "Team801.Tibia2.Common": "1.0.0"
+          "Team801.Tibia2.Common": "1.0.0",
+          "GodotSharp": "1.0.0.0"
         },
         "runtime": {
           "Team801.Tibia2.Client.dll": {}
@@ -287,7 +288,7 @@
         "runtime": {
           "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {
             "assemblyVersion": "4.0.4.1",
-            "fileVersion": "4.6.28619.1"
+            "fileVersion": "4.0.0.0"
           }
         }
       },
@@ -436,6 +437,14 @@
         },
         "runtime": {
           "Team801.Tibia2.Common.dll": {}
+        }
+      },
+      "GodotSharp/1.0.0.0": {
+        "runtime": {
+          "GodotSharp.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
@@ -742,6 +751,11 @@
     },
     "Team801.Tibia2.Common/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "GodotSharp/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

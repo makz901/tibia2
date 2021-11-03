@@ -1,9 +1,9 @@
-using Team801.Tibia2.Common.Models;
+using Godot;
 
 namespace Team801.Tibia2.Common.Packets.FromServer
 {
     public class JoinAcceptedPacket : BasePacket
     {
-        public PlayerState PlayerState { get; set; }
+        public Vector2 PlayerPosition { get; set; }
     }
 }

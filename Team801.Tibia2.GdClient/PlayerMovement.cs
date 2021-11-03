@@ -4,8 +4,6 @@ namespace Team801.Tibia2.GdClient
 {
 	public class PlayerMovement : Area2D
 	{
-		private const int Speed = 100;
-
 		private Client.Client _client;
 		private Vector2 _serverPosition;
 
@@ -15,6 +13,7 @@ namespace Team801.Tibia2.GdClient
 			_client = new Client.Client();
 			_client.Connect("GD Makz");
 
+			_client.MovementController.AddListener(new PlayerMovementListener());
 			_client.PlayerManager.PositionChanged += PlayerManagerOnPositionChanged;
 
 			GD.Print("-> connecting to server...");
@@ -39,6 +38,8 @@ namespace Team801.Tibia2.GdClient
 				Position = calcPos;
 				// end
 
+				// _client.MovementController.MoveToLocation(mouseClick);
+				_client.MovementController.MoveToDirection(input);
 				_client.Move(input);
 
 				GD.Print($"-> processing input: {input}");

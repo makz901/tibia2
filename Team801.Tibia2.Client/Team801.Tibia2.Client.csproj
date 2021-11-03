@@ -28,4 +28,7 @@
       <HintPath>..\Team801.Tibia2.GdClient\.mono\assemblies\Debug\GodotSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Base" />
+  </ItemGroup>
 </Project>

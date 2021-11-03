@@ -2,56 +2,41 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using Autofac;
-using Godot;
 using LiteNetLib;
 using Team801.Tibia2.Client.Configuration;
-using Team801.Tibia2.Client.Services.Contracts;
-using Team801.Tibia2.Common.Configuration;
+using Team801.Tibia2.Client.Controllers;
+using Team801.Tibia2.Client.Services;
 using Team801.Tibia2.Common.Packets.FromClient;
 
 namespace Team801.Tibia2.Client
 {
     public class Client : INetEventListener
     {
-        private readonly NetManager _instance;
-        private readonly PacketProcessor _packetProcessor;
+        private readonly ClientNetManager _netManager;
 
-        private NetPeer _server;
-
-        public IPlayerManager PlayerManager { get; }
+        public IMovementController MovementController { get; }
 
         public Client()
         {
-            ClientConfig.Build();
+            ClientConfig.Build(this);
 
-            _instance = new NetManager(this) {AutoRecycle = true};
-
-            PlayerManager = ClientConfig.IoC.Resolve<IPlayerManager>();
-            _packetProcessor = ClientConfig.IoC.Resolve<PacketProcessor>();
+            _netManager = ClientConfig.IoC.Resolve<ClientNetManager>();
+            MovementController = ClientConfig.IoC.Resolve<IMovementController>();
         }
 
-        public void OnFrameUpdated() => _instance.PollEvents();
+        public void OnFrameUpdated() => _netManager.PollEvents();
 
-        public void Connect(string username)
+        public void Connect()
         {
             Console.WriteLine("Connecting to server...");
 
-            PlayerManager.Player.Username = username;
-
-            _instance.Start();
-            _instance.Connect("localhost", 12345, "");
-        }
-
-        public void Move(Vector2 direction)
-        {
-            _packetProcessor.SendTo(_server, new MovePlayerPacket { Direction = direction });
+            _netManager.Start();
+            _netManager.Connect("localhost", 12345, "");
         }
 
         public void OnPeerConnected(NetPeer peer)
         {
-            _server = peer;
-
-            _packetProcessor.SendTo(_server, new JoinPacket { Username = PlayerManager.Player.Username });
+            _netManager.Send(new JoinPacket { Username =  });
         }
 
         public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
@@ -64,7 +49,7 @@ namespace Team801.Tibia2.Client
 
         public void OnNetworkReceive(NetPeer peer, NetPacketReader reader, DeliveryMethod deliveryMethod) 
         {
-            _packetProcessor.ReadAllPackets(reader, peer);
+            _netManager.ReadAllPackets(reader, peer);
         }
 
         public void OnNetworkReceiveUnconnected(IPEndPoint remoteEndPoint, NetPacketReader reader, UnconnectedMessageType messageType)

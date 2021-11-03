@@ -23,8 +23,10 @@ namespace Team801.Tibia2.Server.PacketHandlers
             _gameTimer = gameTimer;
         }
 
-        public override void Handle(MovePlayerPacket packet, NetPeer peer)
+        public override void Handle(MovePlayerPacket packet, NetPeer peer = null)
         {
+            if (peer == null) throw new ArgumentNullException(nameof(peer));
+
             var input = packet.Direction;
 
             Console.WriteLine($"Received movement input {input} (pid: {peer.Id})");
@@ -34,11 +36,11 @@ namespace Team801.Tibia2.Server.PacketHandlers
             {
                 player.Move(input.Normalized(), _gameTimer.FrameDelta);
 
-                var movedPacket = new PlayerMovedPacket {PlayerState = player.State, PlayerName = player.Username};
+                var movedPacket = new PlayerMovedPacket {PlayerPosition = player.Position, PlayerId = player.CreatureId};
 
-                foreach (var loggedPlayer in _playerManager.GetNearby(player.State.Position))
+                foreach (var nearbyPeer in _playerManager.GetNearbyPeers(player.Position))
                 {
-                    _packetManager.QueuePacket(movedPacket, loggedPlayer.Peer);
+                    _packetManager.QueuePacket(movedPacket, nearbyPeer);
                 }
             }
         }

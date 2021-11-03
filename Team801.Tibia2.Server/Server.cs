@@ -61,7 +61,7 @@ namespace Team801.Tibia2.Server
             }
 
             _playerManager.Remove(peer.Id);
-            Console.WriteLine($"Player {player.Username} left the game");
+            Console.WriteLine($"Player {player.Name} left the game");
         }
 
         public void OnNetworkError(IPEndPoint endPoint, SocketError socketError)

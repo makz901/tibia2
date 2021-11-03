@@ -1,10 +1,10 @@
-using Team801.Tibia2.Common.Models;
+using Godot;
 
 namespace Team801.Tibia2.Common.Packets.FromServer
 {
     public class PlayerMovedPacket : BasePacket
     {
-        public string PlayerName { get; set; }
-        public PlayerState PlayerState { get; set; }
+        public string PlayerId { get; set; }
+        public Vector2 PlayerPosition { get; set; }
     }
 }
