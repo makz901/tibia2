@@ -4,11 +4,11 @@ namespace Team801.Tibia2.Common.Models.Creature
 {
     public class Player : Creature
     {
-        public int Level;
+        public int Level { get; set; }
 
         public void Move(Vector2 input, double deltaTime)
         {
-            Position += input * Attributes.Speed * (float) deltaTime;
+            Position += input.Normalized() * Speed * (float) deltaTime;
         }
     }
 }

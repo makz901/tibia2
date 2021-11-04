@@ -1,13 +1,14 @@
 using Godot;
+using Team801.Tibia2.Common.Models.Enums;
 
 namespace Team801.Tibia2.Common.Models.Creature
 {
     public abstract class Creature
     {
-        public string CreatureId;
-        public string Name;
-        public Vector2 Position;
-        public Vector2 Rotation;
-        public Attributes Attributes = new Attributes();
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public Vector2 Position { get; set; }
+        public WorldDirection Direction { get; set; }
+        public int Speed { get; set; } = 100;
     }
 }

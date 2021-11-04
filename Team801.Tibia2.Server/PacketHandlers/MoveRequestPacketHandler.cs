@@ -7,23 +7,20 @@ using Team801.Tibia2.Server.Services.Contracts;
 
 namespace Team801.Tibia2.Server.PacketHandlers
 {
-    public class MovePlayerPacketHandler : BasePacketHandler<MovePlayerPacket>
+    public class MoveRequestPacketHandler : BasePacketHandler<MoveRequestPacket>
     {
         private readonly IPlayerManager _playerManager;
         private readonly IPacketManager _packetManager;
-        private readonly IGameTimer _gameTimer;
 
-        public MovePlayerPacketHandler(
+        public MoveRequestPacketHandler(
             IPlayerManager playerManager,
-            IPacketManager packetManager,
-            IGameTimer gameTimer)
+            IPacketManager packetManager)
         {
             _playerManager = playerManager;
             _packetManager = packetManager;
-            _gameTimer = gameTimer;
         }
 
-        public override void Handle(MovePlayerPacket packet, NetPeer peer = null)
+        public override void Handle(MoveRequestPacket packet, NetPeer peer = null)
         {
             if (peer == null) throw new ArgumentNullException(nameof(peer));
 
@@ -34,9 +31,9 @@ namespace Team801.Tibia2.Server.PacketHandlers
             var player = _playerManager.Get(peer.Id);
             if (player != null)
             {
-                player.Move(input.Normalized(), _gameTimer.FrameDelta);
+                player.Move(input.Normalized(), );
 
-                var movedPacket = new PlayerMovedPacket {PlayerPosition = player.Position, PlayerId = player.CreatureId};
+                var movedPacket = new PlayerMovedPacket {PlayerPosition = player.Position, PlayerName = player.Name};
 
                 foreach (var nearbyPeer in _playerManager.GetNearbyPeers(player.Position))
                 {

@@ -17,9 +17,6 @@ namespace Team801.Tibia2.Server
 
         private PacketProcessor _processor;
         private IPlayerManager _playerManager;
-        private IGameTimer _gameTimer;
-
-        private DateTime _lastUpdateTime = DateTime.Now;
 
         public Server()
         {
@@ -34,7 +31,6 @@ namespace Team801.Tibia2.Server
 
             _processor = ServerConfig.IoC.Resolve<PacketProcessor>();
             _playerManager = ServerConfig.IoC.Resolve<IPlayerManager>();
-            _gameTimer = ServerConfig.IoC.Resolve<IGameTimer>();
 
             _instance.Start(Port);
 
@@ -43,9 +39,7 @@ namespace Team801.Tibia2.Server
 
         public void OnFrameUpdated()
         {
-            _gameTimer.FrameDelta = (DateTime.Now - _lastUpdateTime).TotalSeconds;
             _instance?.PollEvents();
-            _lastUpdateTime = DateTime.Now;
         }
 
         public void OnPeerConnected(NetPeer peer)

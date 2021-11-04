@@ -5,30 +5,38 @@ using Autofac;
 using LiteNetLib;
 using Team801.Tibia2.Client.Configuration;
 using Team801.Tibia2.Client.Controllers;
-using Team801.Tibia2.Client.Services;
+using Team801.Tibia2.Client.Managers;
+using Team801.Tibia2.Common.Configuration;
 using Team801.Tibia2.Common.Packets.FromClient;
 
 namespace Team801.Tibia2.Client
 {
     public class Client : INetEventListener
     {
-        private readonly ClientNetManager _netManager;
+        private readonly NetManager _netManager;
+        private readonly PacketProcessor _processor;
+        private readonly ClientManager _clientManager;
+        private string _requestedName;
 
         public IMovementController MovementController { get; }
 
         public Client()
         {
-            ClientConfig.Build(this);
+            _netManager = new NetManager(this) {AutoRecycle = true};
 
-            _netManager = ClientConfig.IoC.Resolve<ClientNetManager>();
-            MovementController = ClientConfig.IoC.Resolve<IMovementController>();
+            var container = ClientConfig.Build();
+
+            _processor = container.Resolve<PacketProcessor>();
+            _clientManager = container.Resolve<ClientManager>();
+            MovementController = container.Resolve<IMovementController>();
         }
 
         public void OnFrameUpdated() => _netManager.PollEvents();
 
-        public void Connect()
+        public void Connect(string name)
         {
             Console.WriteLine("Connecting to server...");
+            _requestedName = name;
 
             _netManager.Start();
             _netManager.Connect("localhost", 12345, "");
@@ -36,11 +44,13 @@ namespace Team801.Tibia2.Client
 
         public void OnPeerConnected(NetPeer peer)
         {
-            _netManager.Send(new JoinPacket { Username =  });
+            _clientManager.Initialize(peer);
+            _clientManager.SendToServer(new JoinPacket { Username = _requestedName });
         }
 
         public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
         {
+            _requestedName = null;
         }
 
         public void OnNetworkError(IPEndPoint endPoint, SocketError socketError)
@@ -49,7 +59,7 @@ namespace Team801.Tibia2.Client
 
         public void OnNetworkReceive(NetPeer peer, NetPacketReader reader, DeliveryMethod deliveryMethod) 
         {
-            _netManager.ReadAllPackets(reader, peer);
+            _processor.ReadAllPackets(reader, peer);
         }
 
         public void OnNetworkReceiveUnconnected(IPEndPoint remoteEndPoint, NetPacketReader reader, UnconnectedMessageType messageType)

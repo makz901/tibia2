@@ -32,10 +32,10 @@ namespace Team801.Tibia2.ConsoleClient
             switch (key)
             {
                 case ConsoleKey.UpArrow:
-                    client.MovementController.Move(Vector2.Up);
+                    client.MovementController.Move(Vector2.Down);
                     break;
                 case ConsoleKey.DownArrow:
-                    client.MovementController.Move(Vector2.Down);
+                    client.MovementController.Move(Vector2.Up);
                     break;
                 case ConsoleKey.LeftArrow:
                     client.MovementController.Move(Vector2.Left);

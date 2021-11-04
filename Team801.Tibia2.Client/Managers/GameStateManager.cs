@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using Team801.Tibia2.Client.Services.Contracts;
 using Team801.Tibia2.Common.Models.Creature;
 
-namespace Team801.Tibia2.Client.Services
+namespace Team801.Tibia2.Client.Managers
 {
-    public class GameStateManager : IGameStateManager
+    public class GameStateManager
     {
         public Player CurrentPlayer { get; set; }
         public List<Player> PlayerList { get; } = new List<Player>();

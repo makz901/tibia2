@@ -28,13 +28,12 @@ namespace Team801.Tibia2.Server.Configuration
 
             containerBuilder.RegisterType<PlayerManager>().As<IPlayerManager>().SingleInstance();
             containerBuilder.RegisterType<PacketManager>().As<IPacketManager>().SingleInstance();
-            containerBuilder.RegisterType<GameTimer>().As<IGameTimer>().SingleInstance();
         }
 
         private static void RegisterHandlers(ContainerBuilder containerBuilder)
         {
             containerBuilder.RegisterHandler<JoinPacket, JoinPacketHandler>();
-            containerBuilder.RegisterHandler<MovePlayerPacket, MovePlayerPacketHandler>();
+            containerBuilder.RegisterHandler<MoveRequestPacket, MoveRequestPacketHandler>();
         }
     }
 }
