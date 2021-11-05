@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using Autofac;
 using LiteNetLib;
 using Team801.Tibia2.Common.Configuration;
@@ -35,11 +36,11 @@ namespace Team801.Tibia2.Server
             _instance.Start(Port);
 
             Console.WriteLine($"Listening on port: {Port}");
-        }
-
-        public void OnFrameUpdated()
-        {
-            _instance?.PollEvents();
+            while (!Console.KeyAvailable)
+            {
+                _instance?.PollEvents();
+                Thread.Sleep(Constants.SyncInterval);
+            }
         }
 
         public void OnPeerConnected(NetPeer peer)
