@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Team801.Tibia2.Common.Configuration;
 
 namespace Team801.Tibia2.Server
 {
@@ -14,7 +15,7 @@ namespace Team801.Tibia2.Server
             while (!Console.KeyAvailable)
             {
                 server.OnFrameUpdated();
-                Thread.Sleep(15);
+                Thread.Sleep(Constants.SyncInterval);
             }
         }
     }

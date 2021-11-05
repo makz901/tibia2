@@ -32,7 +32,7 @@ namespace Team801.Tibia2.Server.Configuration
 
         private static void RegisterHandlers(ContainerBuilder containerBuilder)
         {
-            containerBuilder.RegisterHandler<JoinPacket, JoinPacketHandler>();
+            containerBuilder.RegisterHandler<JoinRequestPacket, JoinRequestPacketHandler>();
             containerBuilder.RegisterHandler<MoveRequestPacket, MoveRequestPacketHandler>();
         }
     }

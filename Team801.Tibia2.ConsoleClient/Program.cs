@@ -1,5 +1,6 @@
 ﻿using System;
 using Godot;
+using Team801.Tibia2.Common.Configuration;
 using Thread = System.Threading.Thread;
 
 namespace Team801.Tibia2.ConsoleClient
@@ -18,7 +19,7 @@ namespace Team801.Tibia2.ConsoleClient
                 while (!Console.KeyAvailable)
                 {
                     client.OnFrameUpdated();
-                    Thread.Sleep(15);
+                    Thread.Sleep(Constants.SyncInterval);
                 }
 
                 info = Console.ReadKey(true);

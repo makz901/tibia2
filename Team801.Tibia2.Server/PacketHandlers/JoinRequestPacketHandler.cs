@@ -10,12 +10,12 @@ using Team801.Tibia2.Server.Services.Contracts;
 
 namespace Team801.Tibia2.Server.PacketHandlers
 {
-    public class JoinPacketHandler : BasePacketHandler<JoinPacket>
+    public class JoinRequestPacketHandler : BasePacketHandler<JoinRequestPacket>
     {
         private readonly IPacketManager _packetManager;
         private readonly IPlayerManager _playerManager;
 
-        public JoinPacketHandler(
+        public JoinRequestPacketHandler(
             IPacketManager packetManager,
             IPlayerManager playerManager)
         {
@@ -23,15 +23,15 @@ namespace Team801.Tibia2.Server.PacketHandlers
             _playerManager = playerManager;
         }
 
-        public override void Handle(JoinPacket packet, NetPeer peer = null)
+        public override void Handle(JoinRequestPacket requestPacket, NetPeer peer = null)
         {
             if (peer == null) throw new ArgumentNullException(nameof(peer));
 
-            Console.WriteLine($"Received join from {packet.Username} (pid: {peer.Id})");
+            Console.WriteLine($"Received join from {requestPacket.Username} (pid: {peer.Id})");
 
             var newPlayer = new Player 
             {
-                Name = packet.Username,
+                Name = requestPacket.Username,
                 Position = Vector2.Zero
             };
 

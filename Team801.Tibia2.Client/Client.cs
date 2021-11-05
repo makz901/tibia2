@@ -45,7 +45,7 @@ namespace Team801.Tibia2.Client
         public void OnPeerConnected(NetPeer peer)
         {
             _clientManager.Initialize(peer);
-            _clientManager.SendToServer(new JoinPacket { Username = _requestedName });
+            _clientManager.SendToServer(new JoinRequestPacket { Username = _requestedName });
         }
 
         public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)

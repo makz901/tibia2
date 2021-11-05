@@ -38,12 +38,17 @@ namespace Team801.Tibia2.Server.Services
 
         public IEnumerable<Player> GetNearby(Vector2 position)
         {
-            return _players.Values.Where(x => (x.Position - position).Length() < 10);
+            return _players.Values.Where(x => IsPlayerNearPosition(x, position));
         }
 
         public IEnumerable<NetPeer> GetNearbyPeers(Vector2 position)
         {
-            return _players.Where(x => (x.Value.Position - position).Length() < 10).Select(x => x.Key);
+            return _players.Where(x => IsPlayerNearPosition(x.Value, position)).Select(x => x.Key);
+        }
+
+        private bool IsPlayerNearPosition(Player player, Vector2 position)
+        {
+            return (player.Position - position).Length() < 10;
         }
     }
 }
