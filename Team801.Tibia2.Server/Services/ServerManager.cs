@@ -5,11 +5,11 @@ using Team801.Tibia2.Server.Services.Contracts;
 
 namespace Team801.Tibia2.Server.Services
 {
-    public class PacketManager : IPacketManager
+    public class ServerManager : IServerManager
     {
         private readonly PacketProcessor _packetProcessor;
 
-        public PacketManager(PacketProcessor packetProcessor)
+        public ServerManager(PacketProcessor packetProcessor)
         {
             _packetProcessor = packetProcessor;
         }

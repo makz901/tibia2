@@ -12,14 +12,14 @@ namespace Team801.Tibia2.Server.PacketHandlers
 {
     public class JoinRequestPacketHandler : BasePacketHandler<JoinRequestPacket>
     {
-        private readonly IPacketManager _packetManager;
+        private readonly IServerManager _serverManager;
         private readonly IPlayerManager _playerManager;
 
         public JoinRequestPacketHandler(
-            IPacketManager packetManager,
+            IServerManager serverManager,
             IPlayerManager playerManager)
         {
-            _packetManager = packetManager;
+            _serverManager = serverManager;
             _playerManager = playerManager;
         }
 
@@ -44,7 +44,7 @@ namespace Team801.Tibia2.Server.PacketHandlers
                 Direction = newPlayer.Direction
             };
 
-            _packetManager.QueuePacket(new JoinAcceptedPacket { PlayerState = packetModel }, peer);
+            _serverManager.QueuePacket(new JoinAcceptedPacket { PlayerState = packetModel }, peer);
         }
     }
 }

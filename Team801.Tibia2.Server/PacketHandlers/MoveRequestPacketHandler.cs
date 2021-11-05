@@ -11,14 +11,14 @@ namespace Team801.Tibia2.Server.PacketHandlers
     public class MoveRequestPacketHandler : BasePacketHandler<MoveRequestPacket>
     {
         private readonly IPlayerManager _playerManager;
-        private readonly IPacketManager _packetManager;
+        private readonly IServerManager _serverManager;
 
         public MoveRequestPacketHandler(
             IPlayerManager playerManager,
-            IPacketManager packetManager)
+            IServerManager serverManager)
         {
             _playerManager = playerManager;
-            _packetManager = packetManager;
+            _serverManager = serverManager;
         }
 
         public override void Handle(MoveRequestPacket packet, NetPeer peer = null)
@@ -38,7 +38,7 @@ namespace Team801.Tibia2.Server.PacketHandlers
 
                 foreach (var nearbyPeer in _playerManager.GetNearbyPeers(player.Position))
                 {
-                    _packetManager.QueuePacket(movedPacket, nearbyPeer);
+                    _serverManager.QueuePacket(movedPacket, nearbyPeer);
                 }
             }
         }
