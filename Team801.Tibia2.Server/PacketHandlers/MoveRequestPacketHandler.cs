@@ -32,7 +32,7 @@ namespace Team801.Tibia2.Server.PacketHandlers
             var player = _playerManager.Get(peer.Id);
             if (player != null)
             {
-                player.Move(input.Normalized(), Constants.SyncInterval);
+                player.Move(input, (float) Constants.SyncInterval/1000);
 
                 var movedPacket = new PlayerMovedPacket {PlayerPosition = player.Position, PlayerName = player.Name};
 
