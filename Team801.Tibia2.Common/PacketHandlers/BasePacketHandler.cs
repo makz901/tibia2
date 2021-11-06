@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using LiteNetLib;
 using Team801.Tibia2.Common.Packets;
@@ -6,6 +7,7 @@ namespace Team801.Tibia2.Common.PacketHandlers
 {
     public abstract class BasePacketHandler
     {
+        protected int HandlerId = new Random().Next();
         protected readonly Dictionary<int, BasePacket> PacketsDictionary = new Dictionary<int, BasePacket>();
     }
 
@@ -13,6 +15,8 @@ namespace Team801.Tibia2.Common.PacketHandlers
     {
         public bool HandleIfPacketValid(TPacket packet, NetPeer peer = null)
         {
+            Console.WriteLine($"Handling [{typeof(TPacket).Name}] packet by handler: {HandlerId} / packet ticks [{packet.Timestamp.Ticks}]");
+
             if (peer == null)
             {
                 Handle(packet);
