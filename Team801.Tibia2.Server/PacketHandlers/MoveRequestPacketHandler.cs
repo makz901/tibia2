@@ -12,6 +12,7 @@ namespace Team801.Tibia2.Server.PacketHandlers
     {
         private readonly IPlayerManager _playerManager;
         private readonly IServerManager _serverManager;
+        private long _lastPacketTick;
 
         public MoveRequestPacketHandler(
             IPlayerManager playerManager,
@@ -32,6 +33,7 @@ namespace Team801.Tibia2.Server.PacketHandlers
             var player = _playerManager.Get(peer.Id);
             if (player != null)
             {
+                _lastPacketTick = packet.Timestamp;
                 player.Move(input, (float) Constants.SyncInterval/1000);
 
                 var movedPacket = new PlayerMovedPacket {PlayerPosition = player.Position, PlayerName = player.Name};
