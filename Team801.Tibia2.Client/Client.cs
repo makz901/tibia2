@@ -45,11 +45,12 @@ namespace Team801.Tibia2.Client
         public void OnPeerConnected(NetPeer peer)
         {
             _clientManager.Initialize(peer);
-            _clientManager.SendToServer(new JoinRequestPacket { Username = _requestedName });
+            _clientManager.SendToServer(new JoinRequestPacket { Username = _requestedName }, DeliveryMethod.ReliableOrdered);
         }
 
         public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
         {
+            Console.WriteLine("Disconnected");
             _requestedName = null;
         }
 

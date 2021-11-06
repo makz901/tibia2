@@ -17,9 +17,9 @@ namespace Team801.Tibia2.Client.Managers
         public bool IsConnected => ServerPeer?.ConnectionState == ConnectionState.Connected;
         public NetPeer ServerPeer { get; private set; }
 
-        public void SendToServer<TPacket>(TPacket packet) where TPacket : BasePacket, new()
+        public void SendToServer<TPacket>(TPacket packet, DeliveryMethod deliveryMethod = DeliveryMethod.Unreliable) where TPacket : BasePacket, new()
         {
-            _processor.SendTo(ServerPeer, packet);
+            _processor.SendTo(ServerPeer, packet, deliveryMethod);
         }
 
         public void Initialize(NetPeer peer)

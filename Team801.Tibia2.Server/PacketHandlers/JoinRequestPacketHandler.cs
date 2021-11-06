@@ -23,7 +23,7 @@ namespace Team801.Tibia2.Server.PacketHandlers
             _playerManager = playerManager;
         }
 
-        public override void Handle(JoinRequestPacket requestPacket, NetPeer peer = null)
+        protected override void Handle(JoinRequestPacket requestPacket, NetPeer peer = null)
         {
             if (peer == null) throw new ArgumentNullException(nameof(peer));
 

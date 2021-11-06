@@ -21,7 +21,7 @@ namespace Team801.Tibia2.Server.PacketHandlers
             _serverManager = serverManager;
         }
 
-        public override void Handle(MoveRequestPacket packet, NetPeer peer = null)
+        protected override void Handle(MoveRequestPacket packet, NetPeer peer = null)
         {
             if (peer == null) throw new ArgumentNullException(nameof(peer));
 

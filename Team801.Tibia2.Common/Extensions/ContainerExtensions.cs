@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Autofac;
@@ -10,7 +11,7 @@ namespace Team801.Tibia2.Common.Extensions
 {
     public static class ContainerExtensions
     {
-        private static readonly List<BasePacketHandler> PacketHandlers = new List<BasePacketHandler>();
+        private static readonly Dictionary<Type, BasePacketHandler> PacketHandlers = new Dictionary<Type, BasePacketHandler>();
         private static PacketProcessor _processor;
 
         public static void RegisterHandler<TPacket, THandler>(this ContainerBuilder containerBuilder)
@@ -23,14 +24,21 @@ namespace Team801.Tibia2.Common.Extensions
                 _processor = _processor ?? scope.Resolve<PacketProcessor>();
                 _processor.SubscribeReusable<TPacket, NetPeer>((packet, peer) =>
                 {
-                    var handler = PacketHandlers.OfType<THandler>().FirstOrDefault();
-                    if (handler == null)
+                    THandler packetHandler;
+                    var type = typeof(THandler);
+
+                    var alreadyRegistered = PacketHandlers.TryGetValue(type, out var handler);
+                    if (alreadyRegistered)
                     {
-                        handler = scope.Resolve<THandler>();
-                        PacketHandlers.Add(handler);
+                        packetHandler = handler as THandler;
+                    }
+                    else
+                    {
+                        packetHandler = scope.Resolve<THandler>();
+                        PacketHandlers.Add(type, packetHandler);
                     }
 
-                    handler.Handle(packet, peer);
+                    packetHandler?.HandleIfPacketValid(packet, peer);
                 });
             });
         }

@@ -17,7 +17,7 @@ namespace Team801.Tibia2.Client.PacketHandlers
             _gameStateManager = gameStateManager;
         }
 
-        public override void Handle(JoinAcceptedPacket packet, NetPeer peer = null)
+        protected override void Handle(JoinAcceptedPacket packet, NetPeer peer = null)
         {
             Console.WriteLine($"Join accepted by server");
             _gameStateManager.CurrentPlayer = new Player()
