@@ -10,16 +10,15 @@ namespace Team801.Tibia2.Server.Configuration
 {
     public static class ServerConfig
     {
-        public static IContainer IoC { get; private set; }
-
-        public static void Build()
+        public static IContainer Build()
         {
             var containerBuilder = new ContainerBuilder();
 
             RegisterServices(containerBuilder);
             RegisterHandlers(containerBuilder);
 
-            IoC = containerBuilder.Build();
+            // IoC = containerBuilder.Build();
+            return containerBuilder.Build();
         }
 
         private static void RegisterServices(ContainerBuilder containerBuilder)

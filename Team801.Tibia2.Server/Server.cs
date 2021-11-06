@@ -15,23 +15,21 @@ namespace Team801.Tibia2.Server
         private const int Port = 12345;
 
         private readonly NetManager _instance;
-
-        private PacketProcessor _processor;
-        private IPlayerManager _playerManager;
+        private readonly PacketProcessor _processor;
+        private readonly IPlayerManager _playerManager;
 
         public Server()
         {
-            ServerConfig.Build();
+            var container = ServerConfig.Build();
 
             _instance = new NetManager(this) {AutoRecycle = true};
+            _processor = container.Resolve<PacketProcessor>();
+            _playerManager = container.Resolve<IPlayerManager>();
         }
 
         public void Start()
         {
             Console.WriteLine("Starting server...");
-
-            _processor = ServerConfig.IoC.Resolve<PacketProcessor>();
-            _playerManager = ServerConfig.IoC.Resolve<IPlayerManager>();
 
             _instance.Start(Port);
 

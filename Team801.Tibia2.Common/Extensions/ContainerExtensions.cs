@@ -17,7 +17,7 @@ namespace Team801.Tibia2.Common.Extensions
             where THandler : BasePacketHandler<TPacket>
             where TPacket : BasePacket, new()
         {
-            containerBuilder.RegisterType<THandler>();
+            containerBuilder.RegisterType<THandler>().SingleInstance();
             containerBuilder.RegisterBuildCallback(scope =>
             {
                 _processor = _processor ?? scope.Resolve<PacketProcessor>();
