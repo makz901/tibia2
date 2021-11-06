@@ -7,7 +7,7 @@ namespace Team801.Tibia2.Common.PacketHandlers
 {
     public abstract class BasePacketHandler
     {
-        protected int HandlerId = new Random().Next();
+        protected readonly int HandlerId = new Random().Next();
         protected readonly Dictionary<int, BasePacket> PacketsDictionary = new Dictionary<int, BasePacket>();
     }
 
@@ -15,7 +15,7 @@ namespace Team801.Tibia2.Common.PacketHandlers
     {
         public bool HandleIfPacketValid(TPacket packet, NetPeer peer = null)
         {
-            Console.WriteLine($"Handling [{typeof(TPacket).Name}] packet by handler: {HandlerId} / packet ticks [{packet.Timestamp.Ticks}]");
+            Console.WriteLine($"Handling [{typeof(TPacket).Name}]\t handler: {HandlerId} - packet time [{packet.Timestamp.Ticks}]");
 
             if (peer == null)
             {
@@ -23,20 +23,21 @@ namespace Team801.Tibia2.Common.PacketHandlers
                 return true;
             }
 
-            if (PacketsDictionary.TryGetValue(peer.Id, out var lastPacket))
+            if (!PacketsDictionary.TryGetValue(peer.Id, out var lastPacket))
             {
-                if (packet.Timestamp < lastPacket.Timestamp)
-                    return false;
+                PacketsDictionary.Add(peer.Id, packet);
+                Handle(packet, peer);
+                return true;
+            }
 
+            if (packet.Timestamp >= lastPacket.Timestamp)
+            {
                 PacketsDictionary[peer.Id] = packet;
                 Handle(packet, peer);
                 return true;
-
             }
 
-            PacketsDictionary.Add(peer.Id, packet);
-            Handle(packet, peer);
-            return true;
+            return false;
         }
 
         protected abstract void Handle(TPacket packet, NetPeer peer = null);
