@@ -37,7 +37,7 @@ namespace Team801.Tibia2.Server
             while (!Console.KeyAvailable)
             {
                 _instance?.PollEvents();
-                Thread.Sleep(Constants.SyncInterval);
+                Thread.Sleep(Constants.ServerTickInterval);
             }
         }
 

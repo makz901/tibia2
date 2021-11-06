@@ -48,7 +48,7 @@ namespace Team801.Tibia2.Server.Services
 
         private bool IsPlayerNearPosition(Player player, Vector2 position)
         {
-            return (player.Position - position).Length() < 10;
+            return (player.Position - position).Length() < 10000000000;
         }
     }
 }

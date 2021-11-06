@@ -19,7 +19,7 @@ namespace Team801.Tibia2.ConsoleClient
                 while (!Console.KeyAvailable)
                 {
                     client.OnFrameUpdated();
-                    Thread.Sleep(Constants.SyncInterval);
+                    Thread.Sleep(20);
                 }
 
                 info = Console.ReadKey(true);
