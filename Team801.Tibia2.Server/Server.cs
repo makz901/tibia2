@@ -6,6 +6,7 @@ using Autofac;
 using LiteNetLib;
 using Team801.Tibia2.Common.Configuration;
 using Team801.Tibia2.Server.Configuration;
+using Team801.Tibia2.Server.Services;
 using Team801.Tibia2.Server.Services.Contracts;
 
 namespace Team801.Tibia2.Server
@@ -17,6 +18,7 @@ namespace Team801.Tibia2.Server
         private readonly NetManager _instance;
         private readonly PacketProcessor _processor;
         private readonly IPlayerManager _playerManager;
+        private readonly IGameEventsDispatcher _gameEventsDispatcher;
 
         public Server()
         {
@@ -25,6 +27,7 @@ namespace Team801.Tibia2.Server
             _instance = new NetManager(this) {AutoRecycle = true};
             _processor = container.Resolve<PacketProcessor>();
             _playerManager = container.Resolve<IPlayerManager>();
+            _gameEventsDispatcher = container.Resolve<IGameEventsDispatcher>();
         }
 
         public void Start()
@@ -32,12 +35,12 @@ namespace Team801.Tibia2.Server
             Console.WriteLine("Starting server...");
 
             _instance.Start(Port);
+            _gameEventsDispatcher.Start(new CancellationToken());
 
             Console.WriteLine($"Listening on port: {Port}");
             while (!Console.KeyAvailable)
             {
                 _instance?.PollEvents();
-                Thread.Sleep(Constants.ServerTickInterval);
             }
         }
 
@@ -54,7 +57,7 @@ namespace Team801.Tibia2.Server
             }
 
             _playerManager.Remove(peer.Id);
-            Console.WriteLine($"Player {player.Name} left the game");
+            Console.WriteLine($"Player {player.CurrentCharacter.Name} left the game");
         }
 
         public void OnNetworkError(IPEndPoint endPoint, SocketError socketError)

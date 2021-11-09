@@ -5,16 +5,16 @@ using Team801.Tibia2.Server.Services.Contracts;
 
 namespace Team801.Tibia2.Server.Services
 {
-    public class ServerManager : IServerManager
+    public class ServerPacketManager : IServerPacketManager
     {
         private readonly PacketProcessor _packetProcessor;
 
-        public ServerManager(PacketProcessor packetProcessor)
+        public ServerPacketManager(PacketProcessor packetProcessor)
         {
             _packetProcessor = packetProcessor;
         }
 
-        public void QueuePacket<TPacket>(TPacket packet, NetPeer peer) where TPacket : BasePacket, new()
+        public void Send<TPacket>(TPacket packet, NetPeer peer) where TPacket : BasePacket, new()
         {
             _packetProcessor.SendTo(peer, packet);
         }

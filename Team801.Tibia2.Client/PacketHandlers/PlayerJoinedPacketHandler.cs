@@ -7,20 +7,20 @@ using Team801.Tibia2.Common.Packets.FromServer;
 
 namespace Team801.Tibia2.Client.PacketHandlers
 {
-    public class JoinAcceptedPacketHandler : BasePacketHandler<JoinAcceptedPacket>
+    public class PlayerJoinedPacketHandler : BasePacketHandler<PlayerJoinedPacket>
     {
         private readonly GameStateManager _gameStateManager;
 
-        public JoinAcceptedPacketHandler(
+        public PlayerJoinedPacketHandler(
             GameStateManager gameStateManager)
         {
             _gameStateManager = gameStateManager;
         }
 
-        protected override void Handle(JoinAcceptedPacket packet, NetPeer peer = null)
+        protected override void Handle(PlayerJoinedPacket packet, NetPeer peer = null)
         {
             Console.WriteLine($"Join accepted by server");
-            _gameStateManager.CurrentPlayer = new Player()
+            _gameStateManager.MyCharacter = new Character()
             {
                 Name = packet.PlayerState.Name,
                 Position = packet.PlayerState.Position,

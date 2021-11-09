@@ -20,4 +20,9 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models" />
+    <Folder Include="Services\Events" />
+  </ItemGroup>
+
 </Project>

@@ -19,7 +19,7 @@ namespace Team801.Tibia2.Client.PacketHandlers
         protected override void Handle(PlayerMovedPacket packet, NetPeer peer = null)
         {
             Console.WriteLine($"Player [{packet.PlayerName}] moved to a new position {packet.PlayerPosition}\t {new DateTime(packet.Timestamp):O}");
-            _gameStateManager.CurrentPlayer.Position = packet.PlayerPosition;
+            _gameStateManager.MyCharacter.Position = packet.PlayerPosition;
         }
     }
 }

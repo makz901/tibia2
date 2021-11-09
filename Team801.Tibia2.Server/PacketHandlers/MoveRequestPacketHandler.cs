@@ -1,24 +1,28 @@
 using System;
 using LiteNetLib;
-using Team801.Tibia2.Common.Configuration;
 using Team801.Tibia2.Common.PacketHandlers;
 using Team801.Tibia2.Common.Packets.FromClient;
 using Team801.Tibia2.Common.Packets.FromServer;
+using Team801.Tibia2.Server.Services;
 using Team801.Tibia2.Server.Services.Contracts;
+using Team801.Tibia2.Server.Tasks;
 
 namespace Team801.Tibia2.Server.PacketHandlers
 {
     public class MoveRequestPacketHandler : BasePacketHandler<MoveRequestPacket>
     {
         private readonly IPlayerManager _playerManager;
-        private readonly IServerManager _serverManager;
+        private readonly IServerPacketManager _serverPacketManager;
+        private readonly IGameEventsDispatcher _gameEventsDispatcher;
 
         public MoveRequestPacketHandler(
             IPlayerManager playerManager,
-            IServerManager serverManager)
+            IServerPacketManager serverPacketManager,
+            IGameEventsDispatcher gameEventsDispatcher)
         {
             _playerManager = playerManager;
-            _serverManager = serverManager;
+            _serverPacketManager = serverPacketManager;
+            _gameEventsDispatcher = gameEventsDispatcher;
         }
 
         protected override void Handle(MoveRequestPacket packet, NetPeer peer = null)
@@ -30,16 +34,9 @@ namespace Team801.Tibia2.Server.PacketHandlers
             Console.WriteLine($"Received movement input {input} (pid: {peer.Id})");
 
             var player = _playerManager.Get(peer.Id);
-            if (player != null)
+            if (player?.CurrentCharacter != null)
             {
-                player.Move(input, 1000/(float)Constants.ServerTickInterval/1000);
-
-                var movedPacket = new PlayerMovedPacket {PlayerPosition = player.Position, PlayerName = player.Name};
-
-                foreach (var nearbyPeer in _playerManager.GetNearbyPeers(player.Position))
-                {
-                    _serverManager.QueuePacket(movedPacket, nearbyPeer);
-                }
+                _gameEventsDispatcher.AddEvent(new GameEvent(() => player.CurrentCharacter.Move(input)));
             }
         }
     }

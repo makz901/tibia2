@@ -38,7 +38,7 @@ namespace Team801.Tibia2.Client.Configuration
 
         private static void RegisterPacketHandlers(ContainerBuilder containerBuilder)
         {
-            containerBuilder.RegisterHandler<JoinAcceptedPacket, JoinAcceptedPacketHandler>();
+            containerBuilder.RegisterHandler<PlayerJoinedPacket, PlayerJoinedPacketHandler>();
             containerBuilder.RegisterHandler<PlayerMovedPacket, PlayerMovedPacketHandler>();
         }
     }

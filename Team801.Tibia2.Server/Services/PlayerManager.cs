@@ -1,54 +1,84 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using LiteNetLib;
-using Team801.Tibia2.Common.Models.Creature;
+using Team801.Tibia2.Common.Models.Player;
+using Team801.Tibia2.Common.Packets.FromServer;
+using Team801.Tibia2.Common.Packets.Models;
 using Team801.Tibia2.Server.Services.Contracts;
 
 namespace Team801.Tibia2.Server.Services
 {
     public class PlayerManager : IPlayerManager
     {
-        private readonly Dictionary<NetPeer, Player> _players = new Dictionary<NetPeer, Player>();
+        private static readonly object PlayersLock = new object();
 
-        public void Add(NetPeer peer, Player newPlayer)
+        private readonly Dictionary<int, Player> _players = new Dictionary<int, Player>();
+        private readonly IServerPacketManager _serverPacketManager;
+
+        public PlayerManager(
+            IServerPacketManager serverPacketManager)
         {
-            _players.Add(peer, newPlayer);
+            _serverPacketManager = serverPacketManager;
+        }
+
+        public void Add(int peerId, Player newPlayer)
+        {
+            lock (PlayersLock)
+            {
+                if (_players.ContainsKey(peerId)) return;
+
+                _players.Add(peerId, newPlayer);
+                OnPlayerAdded(newPlayer);
+            }
         }
 
         public void Remove(int id)
         {
-            var toRemove = _players.Keys.FirstOrDefault(x => x.Id == id);
-            if (toRemove != null)
+            lock (PlayersLock)
             {
-                _players.Remove(toRemove);
+                if (!_players.TryGetValue(id, out var player)) return;
+
+                _players.Remove(id);
+                OnPlayerRemoved(player);
             }
         }
 
         public Player Get(int id)
         {
-            var peer = _players.Keys.FirstOrDefault(x => x.Id == id);
-            if (peer != null)
+            lock (PlayersLock)
             {
-                return _players.TryGetValue(peer, out var player) ? player : null;
+                return _players.TryGetValue(id, out var player) ? player : null;
             }
-
-            return null;
         }
 
         public IEnumerable<Player> GetNearby(Vector2 position)
         {
-            return _players.Values.Where(x => IsPlayerNearPosition(x, position));
+            lock (PlayersLock)
+            {
+                return _players.Values.Where(x => IsPlayerNearPosition(x, position));
+            }
         }
 
-        public IEnumerable<NetPeer> GetNearbyPeers(Vector2 position)
+        private void OnPlayerAdded(Player newPlayer)
         {
-            return _players.Where(x => IsPlayerNearPosition(x.Value, position)).Select(x => x.Key);
+            var packetModel = new PlayerStatePacketModel
+            {
+                Name = newPlayer.CurrentCharacter.Name,
+                Position = newPlayer.CurrentCharacter.Position,
+                Direction = newPlayer.CurrentCharacter.Direction
+            };
+
+            _serverPacketManager.Send(new PlayerJoinedPacket { PlayerState = packetModel }, newPlayer.Peer);
+        }
+
+        private void OnPlayerRemoved(Player player)
+        {
+            //todo:
         }
 
         private bool IsPlayerNearPosition(Player player, Vector2 position)
         {
-            return (player.Position - position).Length() < 10000000000;
+            return player.CurrentCharacter != null && (player.CurrentCharacter.Position - position).Length() < 20;
         }
     }
 }
