@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Godot;
-using Team801.Tibia2.Common.Configuration;
+using Team801.Tibia2.Client;
 using Thread = System.Threading.Thread;
 
 namespace Team801.Tibia2.ConsoleClient
@@ -9,12 +10,12 @@ namespace Team801.Tibia2.ConsoleClient
     {
         static void Main(string[] args)
         {
-            var client = new Client.Client();
             Console.WriteLine("What's your name:");
+
+            var client = new GameClient();
             client.Connect(Console.ReadLine());
 
             ConsoleKeyInfo info;
-
             do {
                 while (!Console.KeyAvailable)
                 {
@@ -28,21 +29,21 @@ namespace Team801.Tibia2.ConsoleClient
             } while(info.Key != ConsoleKey.Backspace);
         }
 
-        private static void HandleKey(ConsoleKey key, Client.Client client)
+        private static void HandleKey(ConsoleKey key, GameClient gameClient)
         {
             switch (key)
             {
                 case ConsoleKey.UpArrow:
-                    client.MovementController.Move(Vector2.Down);
+                    gameClient.MovementController.Move(Vector2.Down);
                     break;
                 case ConsoleKey.DownArrow:
-                    client.MovementController.Move(Vector2.Up);
+                    gameClient.MovementController.Move(Vector2.Up);
                     break;
                 case ConsoleKey.LeftArrow:
-                    client.MovementController.Move(Vector2.Left);
+                    gameClient.MovementController.Move(Vector2.Left);
                     break;
                 case ConsoleKey.RightArrow:
-                    client.MovementController.Move(Vector2.Right);
+                    gameClient.MovementController.Move(Vector2.Right);
                     break;
             }
         }

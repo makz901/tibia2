@@ -20,7 +20,6 @@ namespace Team801.Tibia2.Client.Configuration
             Services(containerBuilder);
             RegisterPacketHandlers(containerBuilder);
 
-            // IoC = containerBuilder.Build();
             return containerBuilder.Build();
         }
 
@@ -34,6 +33,7 @@ namespace Team801.Tibia2.Client.Configuration
             containerBuilder.RegisterType<PacketProcessor>().SingleInstance();
             containerBuilder.RegisterType<ClientManager>().SingleInstance();
             containerBuilder.RegisterType<GameStateManager>().SingleInstance();
+            containerBuilder.RegisterType<GameClientListener>().SingleInstance();
         }
 
         private static void RegisterPacketHandlers(ContainerBuilder containerBuilder)

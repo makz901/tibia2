@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
 using Team801.Tibia2.Common.Models.Enums;
 
@@ -15,11 +16,15 @@ namespace Team801.Tibia2.Common.Models.Creature
         public int Speed { get; set; } = 1;
 
         //Actions
-        public event Action<Creature> Moved;
         public void Move(Vector2 input)
         {
             Position += input.Normalized() * Speed;
-            Moved?.Invoke(this);
+        }
+
+        public event Action<Creature> Moved;
+        public void OnMoved()
+        {
+            Task.Run(() => Moved?.Invoke(this));
         }
     }
 }

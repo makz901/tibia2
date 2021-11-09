@@ -1,8 +1,8 @@
 using System;
 
-namespace Team801.Tibia2.Server.Tasks
+namespace Team801.Tibia2.Server.Game.Contracts
 {
-    public interface IGameEvent
+    public interface IGameAction
     {
         Action Action { get; }
 

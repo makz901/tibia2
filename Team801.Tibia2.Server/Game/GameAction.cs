@@ -1,16 +1,17 @@
 using System;
+using Team801.Tibia2.Server.Game.Contracts;
 
-namespace Team801.Tibia2.Server.Tasks
+namespace Team801.Tibia2.Server.Game
 {
-    public class GameEvent : IGameEvent
+    public class GameAction : IGameAction
     {
-        public GameEvent(Action action)
+        public GameAction(Action action)
         {
             Action = action;
             HasNoTimeout = true;
         }
 
-        public GameEvent(int expirationMs, Action action)
+        public GameAction(int expirationMs, Action action)
         {
             Action = action;
             ExpirationTime = DateTime.Now.AddMilliseconds(expirationMs).TimeOfDay;

@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            var server = new Server();
+            var server = new GameServer();
             server.Start();
         }
     }

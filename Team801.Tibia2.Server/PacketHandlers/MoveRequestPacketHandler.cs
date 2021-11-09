@@ -2,10 +2,9 @@ using System;
 using LiteNetLib;
 using Team801.Tibia2.Common.PacketHandlers;
 using Team801.Tibia2.Common.Packets.FromClient;
-using Team801.Tibia2.Common.Packets.FromServer;
+using Team801.Tibia2.Server.Game;
 using Team801.Tibia2.Server.Services;
 using Team801.Tibia2.Server.Services.Contracts;
-using Team801.Tibia2.Server.Tasks;
 
 namespace Team801.Tibia2.Server.PacketHandlers
 {
@@ -36,7 +35,7 @@ namespace Team801.Tibia2.Server.PacketHandlers
             var player = _playerManager.Get(peer.Id);
             if (player?.CurrentCharacter != null)
             {
-                _gameEventsDispatcher.AddEvent(new GameEvent(() => player.CurrentCharacter.Move(input)));
+                _gameEventsDispatcher.AddEvent(new GameAction(() => player.CurrentCharacter.Move(input)));
             }
         }
     }

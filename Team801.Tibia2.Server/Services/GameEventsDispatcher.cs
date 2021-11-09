@@ -2,28 +2,28 @@ using System;
 using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
-using Team801.Tibia2.Server.Tasks;
+using Team801.Tibia2.Server.Game.Contracts;
 
 namespace Team801.Tibia2.Server.Services
 {
     public interface IGameEventsDispatcher
     {
-        void AddEvent(IGameEvent evt, bool hasPriority = false);
+        void AddEvent(IGameAction evt, bool hasPriority = false);
 
         void Start(CancellationToken token);
     }
 
     public class GameEventsDispatcher : IGameEventsDispatcher
     {
-        private readonly ChannelReader<IGameEvent> _reader;
-        private readonly ChannelWriter<IGameEvent> _writer;
+        private readonly ChannelReader<IGameAction> _reader;
+        private readonly ChannelWriter<IGameAction> _writer;
 
         /// <summary>
         ///     A queue responsible for process events
         /// </summary>
         public GameEventsDispatcher()
         {
-            var channel = Channel.CreateUnbounded<IGameEvent>(new UnboundedChannelOptions {SingleReader = true});
+            var channel = Channel.CreateUnbounded<IGameAction>(new UnboundedChannelOptions {SingleReader = true});
             _reader = channel.Reader;
             _writer = channel.Writer;
         }
@@ -33,7 +33,7 @@ namespace Team801.Tibia2.Server.Services
         /// </summary>
         /// <param name="evt"></param>
         /// <param name="hasPriority"></param>
-        public void AddEvent(IGameEvent evt, bool hasPriority = false)
+        public void AddEvent(IGameAction evt, bool hasPriority = false)
         {
             _writer.TryWrite(evt);
         }

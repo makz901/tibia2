@@ -19,7 +19,7 @@ namespace Team801.Tibia2.Client.PacketHandlers
 
         protected override void Handle(PlayerJoinedPacket packet, NetPeer peer = null)
         {
-            Console.WriteLine($"Join accepted by server");
+            // Console.WriteLine($"Join accepted by server");
             _gameStateManager.MyCharacter = new Character()
             {
                 Name = packet.PlayerState.Name,

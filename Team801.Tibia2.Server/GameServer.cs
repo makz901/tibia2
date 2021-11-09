@@ -11,7 +11,7 @@ using Team801.Tibia2.Server.Services.Contracts;
 
 namespace Team801.Tibia2.Server
 {
-    public class Server : INetEventListener
+    public class GameServer : INetEventListener
     {
         private const int Port = 12345;
 
@@ -20,7 +20,7 @@ namespace Team801.Tibia2.Server
         private readonly IPlayerManager _playerManager;
         private readonly IGameEventsDispatcher _gameEventsDispatcher;
 
-        public Server()
+        public GameServer()
         {
             var container = ServerConfig.Build();
 
