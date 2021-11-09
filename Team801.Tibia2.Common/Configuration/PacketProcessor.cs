@@ -15,7 +15,7 @@ namespace Team801.Tibia2.Common.Configuration
 
             RegisterNestedType<DateTime>((writer, value) => writer.Put(value.Ticks), reader => new DateTime(reader.GetLong()));
             RegisterNestedType<Vector2>((writer, value) => writer.Put(value), reader => reader.GetVector2());
-            RegisterNestedType<PlayerStatePacketModel>();
+            RegisterNestedType<CreatureStatePacketModel>();
         }
 
         public void SendTo<T>(NetPeer peer, T packet, DeliveryMethod deliveryMethod = DeliveryMethod.Unreliable) where T : class, new()

@@ -8,14 +8,14 @@ namespace Team801.Tibia2.Server.Game
 {
     public class ServerGameCalculations : IServerGameCalculations
     {
-        private readonly IGameEventsDispatcher _gameEventsDispatcher;
+        private readonly IGameActionsDispatcher _gameActionsDispatcher;
 
         private bool _started;
 
         public ServerGameCalculations(
-            IGameEventsDispatcher gameEventsDispatcher)
+            IGameActionsDispatcher gameActionsDispatcher)
         {
-            _gameEventsDispatcher = gameEventsDispatcher;
+            _gameActionsDispatcher = gameActionsDispatcher;
         }
 
         public void Start()
@@ -27,7 +27,7 @@ namespace Team801.Tibia2.Server.Game
             {
                 while (_started)
                 {
-                    ProcessGameFrame();
+                    ProcessFrame();
                     Thread.Sleep(GameConstants.ServerTickInterval);
                 }
             });
@@ -40,7 +40,7 @@ namespace Team801.Tibia2.Server.Game
             _started = false;
         }
 
-        private void ProcessGameFrame()
+        private void ProcessFrame()
         {
         }
     }

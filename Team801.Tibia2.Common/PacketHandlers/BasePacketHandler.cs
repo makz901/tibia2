@@ -14,8 +14,6 @@ namespace Team801.Tibia2.Common.PacketHandlers
     {
         public bool HandleIfPacketValid(TPacket packet, NetPeer peer = null)
         {
-            Console.WriteLine($"Handling [{typeof(TPacket).Name}]");
-
             if (peer == null)
             {
                 Handle(packet);

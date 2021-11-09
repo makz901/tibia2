@@ -29,7 +29,7 @@ namespace Team801.Tibia2.Server.Events
 
         private void OnCharacterMoved(Creature creature)
         {
-            var movedPacket = new PlayerMovedPacket {PlayerPosition = creature.Position, PlayerName = creature.Name};
+            var movedPacket = new CreatureMovedPacket {NewPosition = creature.Position, CreatureId = creature.Id};
             foreach (var nearbyPlayer in _playerManager.GetNearby(creature.Position))
             {
                 _serverPacketManager.Send(movedPacket, nearbyPlayer.Peer);

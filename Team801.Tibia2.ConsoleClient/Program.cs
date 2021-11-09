@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Godot;
 using Team801.Tibia2.Client;
+using Team801.Tibia2.ConsoleClient.Callbacks;
 using Thread = System.Threading.Thread;
 
 namespace Team801.Tibia2.ConsoleClient
@@ -13,6 +14,8 @@ namespace Team801.Tibia2.ConsoleClient
             Console.WriteLine("What's your name:");
 
             var client = new GameClient();
+            client.MovementController.Callbacks = new MovementControllerCallbacks();
+
             client.Connect(Console.ReadLine());
 
             ConsoleKeyInfo info;

@@ -2,8 +2,8 @@ using Team801.Tibia2.Common.Packets.Models;
 
 namespace Team801.Tibia2.Common.Packets.FromServer
 {
-    public class PlayerJoinedPacket : BasePacket
+    public class JoinAcceptedPacket : BasePacket
     {
-        public PlayerStatePacketModel PlayerState { get; set; }
+        public CreatureStatePacketModel CreatureState { get; set; }
     }
 }

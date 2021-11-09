@@ -1,4 +1,6 @@
+using System;
 using Godot;
+using Team801.Tibia2.Client.Controllers.Callbacks;
 using Team801.Tibia2.Client.Managers;
 using Team801.Tibia2.Common.Packets.FromClient;
 
@@ -7,6 +9,8 @@ namespace Team801.Tibia2.Client.Controllers
     public class MovementController : BaseController, IMovementController
     {
         private readonly ClientManager _clientManager;
+
+        public IMovementControllerCallbacks Callbacks { get; set; }
 
         public MovementController(
             ClientManager clientManager)
@@ -23,5 +27,12 @@ namespace Team801.Tibia2.Client.Controllers
         {
             //todo:
         }
+
+        public void OnMoved()
+        {
+            Moved?.Invoke();
+        }
+
+        public event Action Moved;
     }
 }

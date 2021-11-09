@@ -25,7 +25,7 @@ namespace Team801.Tibia2.Client.Configuration
 
         private static void RegisterControllers(ContainerBuilder containerBuilder)
         {
-            containerBuilder.RegisterType<MovementController>().As<IMovementController>();
+            containerBuilder.RegisterType<MovementController>().As<IMovementController>().SingleInstance();
         }
 
         private static void Services(ContainerBuilder containerBuilder)
@@ -38,8 +38,8 @@ namespace Team801.Tibia2.Client.Configuration
 
         private static void RegisterPacketHandlers(ContainerBuilder containerBuilder)
         {
-            containerBuilder.RegisterHandler<PlayerJoinedPacket, PlayerJoinedPacketHandler>();
-            containerBuilder.RegisterHandler<PlayerMovedPacket, PlayerMovedPacketHandler>();
+            containerBuilder.RegisterHandler<JoinAcceptedPacket, JoinAcceptedPacketHandler>();
+            containerBuilder.RegisterHandler<CreatureMovedPacket, PlayerMovedPacketHandler>();
         }
     }
 }

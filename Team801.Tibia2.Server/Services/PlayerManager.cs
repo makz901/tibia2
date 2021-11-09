@@ -61,14 +61,15 @@ namespace Team801.Tibia2.Server.Services
 
         private void OnPlayerAdded(Player newPlayer)
         {
-            var packetModel = new PlayerStatePacketModel
+            var packetModel = new CreatureStatePacketModel
             {
+                Id = newPlayer.CurrentCharacter.Id,
                 Name = newPlayer.CurrentCharacter.Name,
                 Position = newPlayer.CurrentCharacter.Position,
                 Direction = newPlayer.CurrentCharacter.Direction
             };
 
-            _serverPacketManager.Send(new PlayerJoinedPacket { PlayerState = packetModel }, newPlayer.Peer);
+            _serverPacketManager.Send(new JoinAcceptedPacket { CreatureState = packetModel }, newPlayer.Peer);
         }
 
         private void OnPlayerRemoved(Player player)

@@ -12,16 +12,16 @@ namespace Team801.Tibia2.Server.PacketHandlers
     {
         private readonly IPlayerManager _playerManager;
         private readonly IServerPacketManager _serverPacketManager;
-        private readonly IGameEventsDispatcher _gameEventsDispatcher;
+        private readonly IGameActionsDispatcher _gameActionsDispatcher;
 
         public MoveRequestPacketHandler(
             IPlayerManager playerManager,
             IServerPacketManager serverPacketManager,
-            IGameEventsDispatcher gameEventsDispatcher)
+            IGameActionsDispatcher gameActionsDispatcher)
         {
             _playerManager = playerManager;
             _serverPacketManager = serverPacketManager;
-            _gameEventsDispatcher = gameEventsDispatcher;
+            _gameActionsDispatcher = gameActionsDispatcher;
         }
 
         protected override void Handle(MoveRequestPacket packet, NetPeer peer = null)
@@ -35,7 +35,7 @@ namespace Team801.Tibia2.Server.PacketHandlers
             var player = _playerManager.Get(peer.Id);
             if (player?.CurrentCharacter != null)
             {
-                _gameEventsDispatcher.AddEvent(new GameAction(() => player.CurrentCharacter.Move(input)));
+                _gameActionsDispatcher.AddEvent(new GameAction(() => player.CurrentCharacter.Move(input)));
             }
         }
     }

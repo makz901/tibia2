@@ -21,7 +21,6 @@ namespace Team801.Tibia2.Server.Configuration
             RegisterHandlers(containerBuilder);
             RegisterEvents(containerBuilder);
 
-            // IoC = containerBuilder.Build();
             return containerBuilder.Build();
         }
 
@@ -36,7 +35,7 @@ namespace Team801.Tibia2.Server.Configuration
 
             containerBuilder.RegisterType<PlayerManager>().As<IPlayerManager>().SingleInstance();
             containerBuilder.RegisterType<ServerPacketManager>().As<IServerPacketManager>().SingleInstance();
-            containerBuilder.RegisterType<GameEventsDispatcher>().As<IGameEventsDispatcher>().SingleInstance();
+            containerBuilder.RegisterType<GameActionsDispatcher>().As<IGameActionsDispatcher>().SingleInstance();
             containerBuilder.RegisterType<ServerGameCalculations>().As<IServerGameCalculations>().SingleInstance();
         }
 

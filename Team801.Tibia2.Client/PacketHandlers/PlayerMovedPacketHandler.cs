@@ -1,25 +1,34 @@
-using System;
+using System.Linq;
 using LiteNetLib;
+using Team801.Tibia2.Client.Controllers;
 using Team801.Tibia2.Client.Managers;
 using Team801.Tibia2.Common.PacketHandlers;
 using Team801.Tibia2.Common.Packets.FromServer;
 
 namespace Team801.Tibia2.Client.PacketHandlers
 {
-    public class PlayerMovedPacketHandler : BasePacketHandler<PlayerMovedPacket>
+    public class PlayerMovedPacketHandler : BasePacketHandler<CreatureMovedPacket>
     {
         private readonly GameStateManager _gameStateManager;
+        private readonly IMovementController _movementController;
 
         public PlayerMovedPacketHandler(
-            GameStateManager gameStateManager)
+            GameStateManager gameStateManager,
+            IMovementController movementController)
         {
             _gameStateManager = gameStateManager;
+            _movementController = movementController;
         }
 
-        protected override void Handle(PlayerMovedPacket packet, NetPeer peer = null)
+        protected override void Handle(CreatureMovedPacket packet, NetPeer peer = null)
         {
-            // Console.WriteLine($"Player [{packet.PlayerName}] moved to a new position {packet.PlayerPosition}\t {new DateTime(packet.Timestamp):O}");
-            _gameStateManager.MyCharacter.Position = packet.PlayerPosition;
+            var creature = _gameStateManager.CreatureList.FirstOrDefault(x => x.Id == packet.CreatureId);
+            if (creature != null)
+            {
+                creature.Position = packet.NewPosition;
+
+                _movementController.Callbacks?.OnMoved(creature.Position);
+            }
         }
     }
 }

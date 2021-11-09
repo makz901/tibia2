@@ -18,7 +18,9 @@ namespace Team801.Tibia2.Server
         private readonly NetManager _instance;
         private readonly PacketProcessor _processor;
         private readonly IPlayerManager _playerManager;
-        private readonly IGameEventsDispatcher _gameEventsDispatcher;
+        private readonly IGameActionsDispatcher _gameActionsDispatcher;
+
+        private bool _running;
 
         public GameServer()
         {
@@ -27,7 +29,7 @@ namespace Team801.Tibia2.Server
             _instance = new NetManager(this) {AutoRecycle = true};
             _processor = container.Resolve<PacketProcessor>();
             _playerManager = container.Resolve<IPlayerManager>();
-            _gameEventsDispatcher = container.Resolve<IGameEventsDispatcher>();
+            _gameActionsDispatcher = container.Resolve<IGameActionsDispatcher>();
         }
 
         public void Start()
@@ -35,13 +37,20 @@ namespace Team801.Tibia2.Server
             Console.WriteLine("Starting server...");
 
             _instance.Start(Port);
-            _gameEventsDispatcher.Start(new CancellationToken());
+            _gameActionsDispatcher.Start(new CancellationToken());
 
             Console.WriteLine($"Listening on port: {Port}");
-            while (!Console.KeyAvailable)
+
+            _running = true;
+            while (_running)
             {
                 _instance?.PollEvents();
             }
+        }
+
+        public void Stop()
+        {
+            _running = false;
         }
 
         public void OnPeerConnected(NetPeer peer)

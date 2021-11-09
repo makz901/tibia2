@@ -6,14 +6,14 @@ using Team801.Tibia2.Server.Game.Contracts;
 
 namespace Team801.Tibia2.Server.Services
 {
-    public interface IGameEventsDispatcher
+    public interface IGameActionsDispatcher
     {
         void AddEvent(IGameAction evt, bool hasPriority = false);
 
         void Start(CancellationToken token);
     }
 
-    public class GameEventsDispatcher : IGameEventsDispatcher
+    public class GameActionsDispatcher : IGameActionsDispatcher
     {
         private readonly ChannelReader<IGameAction> _reader;
         private readonly ChannelWriter<IGameAction> _writer;
@@ -21,7 +21,7 @@ namespace Team801.Tibia2.Server.Services
         /// <summary>
         ///     A queue responsible for process events
         /// </summary>
-        public GameEventsDispatcher()
+        public GameActionsDispatcher()
         {
             var channel = Channel.CreateUnbounded<IGameAction>(new UnboundedChannelOptions {SingleReader = true});
             _reader = channel.Reader;
