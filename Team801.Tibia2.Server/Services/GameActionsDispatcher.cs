@@ -50,11 +50,11 @@ namespace Team801.Tibia2.Server.Services
                 {
                     if (token.IsCancellationRequested) _writer.Complete();
                     // Fast loop around available jobs
-                    while (_reader.TryRead(out var evt))
-                        if (!evt.HasExpired || evt.HasNoTimeout)
+                    while (_reader.TryRead(out var action))
+                        if (!action.HasExpired || action.HasNoTimeout)
                             try
                             {
-                                evt.Action?.Invoke(); //execute event
+                                action.Invoke();
                             }
                             catch (Exception ex)
                             {

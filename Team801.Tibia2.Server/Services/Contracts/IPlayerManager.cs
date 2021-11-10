@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Godot;
-using Team801.Tibia2.Common.Models.Player;
+using Team801.Tibia2.Server.Models;
 
 namespace Team801.Tibia2.Server.Services.Contracts
 {

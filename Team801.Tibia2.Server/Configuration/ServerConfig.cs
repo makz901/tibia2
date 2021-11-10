@@ -26,7 +26,8 @@ namespace Team801.Tibia2.Server.Configuration
 
         private static void RegisterEvents(ContainerBuilder containerBuilder)
         {
-            containerBuilder.RegisterType<CharacterEvents>();
+            //todo: remove single instance?
+            containerBuilder.RegisterType<CreatureEvents>().SingleInstance();
         }
 
         private static void RegisterServices(ContainerBuilder containerBuilder)

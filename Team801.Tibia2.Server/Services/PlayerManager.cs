@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using Team801.Tibia2.Common.Models.Player;
+using Team801.Tibia2.Server.Models;
 using Team801.Tibia2.Server.Services.Contracts;
 
 namespace Team801.Tibia2.Server.Services
@@ -27,7 +27,7 @@ namespace Team801.Tibia2.Server.Services
         {
             lock (PlayersLock)
             {
-                if (!_players.TryGetValue(id, out var player)) return;
+                if (!_players.ContainsKey(id)) return;
 
                 _players.Remove(id);
             }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Autofac;
 using LiteNetLib;
 using Team801.Tibia2.Common.Configuration;
@@ -18,7 +17,7 @@ namespace Team801.Tibia2.Common.Extensions
             where THandler : BasePacketHandler<TPacket>
             where TPacket : BasePacket, new()
         {
-            containerBuilder.RegisterType<THandler>().SingleInstance();
+            containerBuilder.RegisterType<THandler>();
             containerBuilder.RegisterBuildCallback(scope =>
             {
                 _processor = _processor ?? scope.Resolve<PacketProcessor>();

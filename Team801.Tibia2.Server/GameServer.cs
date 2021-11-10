@@ -5,8 +5,8 @@ using System.Threading;
 using Autofac;
 using LiteNetLib;
 using Team801.Tibia2.Common.Configuration;
-using Team801.Tibia2.Common.Models.Player;
 using Team801.Tibia2.Server.Configuration;
+using Team801.Tibia2.Server.Models;
 using Team801.Tibia2.Server.Services;
 using Team801.Tibia2.Server.Services.Contracts;
 
@@ -14,6 +14,8 @@ namespace Team801.Tibia2.Server
 {
     public class GameServer : INetEventListener
     {
+        public static IContainer IoC { get; private set; }
+
         private const int Port = 12345;
 
         private readonly NetManager _instance;
@@ -26,12 +28,14 @@ namespace Team801.Tibia2.Server
         public GameServer()
         {
             var container = ServerConfig.Build();
+            IoC = container;
 
             _instance = new NetManager(this) {AutoRecycle = true};
             _processor = container.Resolve<PacketProcessor>();
             _playerManager = container.Resolve<IPlayerManager>();
             _gameActionsDispatcher = container.Resolve<IGameActionsDispatcher>();
         }
+
 
         public void Start()
         {
