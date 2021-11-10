@@ -9,7 +9,7 @@ namespace Team801.Tibia2.Server.Events
 {
     public class CreatureEvents
     {
-        private readonly Godot.Collections.Dictionary<string, List<Creature>> _nearbyDictionary = new Godot.Collections.Dictionary<string, List<Creature>>();
+        private readonly Dictionary<string, List<Creature>> _nearbyDictionary = new Dictionary<string, List<Creature>>();
 
         private readonly IPlayerManager _playerManager;
         private readonly IServerPacketManager _serverPacketManager;
