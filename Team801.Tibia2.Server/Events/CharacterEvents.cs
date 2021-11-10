@@ -19,12 +19,12 @@ namespace Team801.Tibia2.Server.Events
 
         public override void Add(Character obj)
         {
-            obj.Moved += OnCharacterMoved;
+            // obj.Moved += OnCharacterMoved;
         }
 
         public override void Remove(Character obj)
         {
-            obj.Moved -= OnCharacterMoved;
+            // obj.Moved -= OnCharacterMoved;
         }
 
         private void OnCharacterMoved(Creature creature)

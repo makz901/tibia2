@@ -1,9 +1,9 @@
-using Godot;
+using Team801.Tibia2.Common.Models.Creature;
 
 namespace Team801.Tibia2.Client.Controllers.Callbacks
 {
     public interface IMovementControllerCallbacks
     {
-        void OnMoved(Vector2 serverPosition);
+        void OnMoved(Creature creature);
     }
 }

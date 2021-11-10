@@ -1,6 +1,6 @@
 using System;
-using System.Linq;
 using LiteNetLib;
+using Team801.Tibia2.Client.Controllers;
 using Team801.Tibia2.Client.Managers;
 using Team801.Tibia2.Common.Models.Creature;
 using Team801.Tibia2.Common.PacketHandlers;
@@ -11,11 +11,14 @@ namespace Team801.Tibia2.Client.PacketHandlers
     public class JoinAcceptedPacketHandler : BasePacketHandler<JoinAcceptedPacket>
     {
         private readonly GameStateManager _gameStateManager;
+        private readonly ICharacterController _characterController;
 
         public JoinAcceptedPacketHandler(
-            GameStateManager gameStateManager)
+            GameStateManager gameStateManager,
+            ICharacterController characterController)
         {
             _gameStateManager = gameStateManager;
+            _characterController = characterController;
         }
 
         protected override void Handle(JoinAcceptedPacket packet, NetPeer peer = null)
@@ -31,10 +34,12 @@ namespace Team801.Tibia2.Client.PacketHandlers
 
             _gameStateManager.MyCharacter = myChar;
 
-            if (_gameStateManager.CreatureList.Any(x => x.Id == myChar.Id) == false)
-            {
-                _gameStateManager.CreatureList.Add(myChar);
-            }
+            // if (_gameStateManager.CreatureList.Any(x => x.Id == myChar.Id) == false)
+            // {
+            //     _gameStateManager.CreatureList.Add(myChar);
+            // }
+
+            _characterController.Callbacks.OnJoined(myChar);
         }
     }
 }

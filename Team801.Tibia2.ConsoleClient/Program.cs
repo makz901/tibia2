@@ -11,12 +11,20 @@ namespace Team801.Tibia2.ConsoleClient
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("What's your name:");
-
             var client = new GameClient();
             client.MovementController.Callbacks = new MovementControllerCallbacks();
+            client.CharacterController.Callbacks = new CharacterControllerCallbacks();
 
-            client.Connect(Console.ReadLine());
+            Task.Run(async () =>
+            {
+                Console.WriteLine("Connecting to game...");
+                var connected = await client.Connect();
+                if (connected)
+                {
+                    Console.WriteLine("Ok. What's your name:");
+                    client.CharacterController.JoinGame(Console.ReadLine());
+                }
+            });
 
             ConsoleKeyInfo info;
             do {

@@ -33,29 +33,46 @@ namespace Team801.Tibia2.Server.PacketHandlers
             if (peer == null) throw new ArgumentNullException(nameof(peer));
 
             var existingPlayer = _playerManager.Get(peer.Id);
-            if (existingPlayer != null)
+            if (existingPlayer == null)
             {
-                Console.WriteLine($"Character with name {requestPacket.Username} already connected (pid: {peer.Id})");
+                Console.WriteLine($"Player with ID:{peer.Id} is not connected");
                 return;
             }
 
-            Console.WriteLine($"Received join from {requestPacket.Username} (pid: {peer.Id})");
-            
-            var newPlayer = new Player(peer)
+            Console.WriteLine($"Received join from character [{requestPacket.Username}] (pid: {peer.Id})");
+
+            var player = _playerManager.Get(peer.Id);
+            var newChar = new Character
             {
-                CurrentCharacter = new Character 
-                {
-                    Name = requestPacket.Username,
-                    Position = Vector2.Zero
-                }
+                Name = requestPacket.Username,
+                Position = Vector2.Zero
             };
 
-            _playerManager.Add(peer.Id, newPlayer);
-            _characterEvents.Add(newPlayer.CurrentCharacter);
+            if (player == null)
+            {
+                player = new Player(peer) {CurrentCharacter = newChar};
+                _playerManager.Add(peer.Id, player);
+            }
+            else
+            {
+                player.CurrentCharacter = newChar;
+            }
 
-            // foreach (var nearByPlayer in _playerManager.GetNearby(newPlayer.CurrentCharacter.Position))
-            // {
-            // }
+            var packetModel = new CreatureStatePacketModel
+            {
+                Id = newChar.Id,
+                Name = newChar.Name,
+                Position = newChar.Position,
+                Direction = newChar.Direction
+            };
+
+            _serverPacketManager.Send(new JoinAcceptedPacket { CreatureState = packetModel }, peer);
+            // _characterEvents.Add(player.CurrentCharacter);
+
+            foreach (var nearByPlayer in _playerManager.GetNearby(newChar.Position))
+            {
+                _serverPacketManager.Send(new CreatureAppearedPacket { State = packetModel }, nearByPlayer.Peer);
+            }
         }
     }
 }

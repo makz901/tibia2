@@ -5,6 +5,7 @@ using System.Threading;
 using Autofac;
 using LiteNetLib;
 using Team801.Tibia2.Common.Configuration;
+using Team801.Tibia2.Common.Models.Player;
 using Team801.Tibia2.Server.Configuration;
 using Team801.Tibia2.Server.Services;
 using Team801.Tibia2.Server.Services.Contracts;
@@ -50,11 +51,19 @@ namespace Team801.Tibia2.Server
 
         public void Stop()
         {
+            _instance.DisconnectAll();
             _running = false;
         }
 
         public void OnPeerConnected(NetPeer peer)
         {
+            var existingPlayer = _playerManager.Get(peer.Id);
+            if (existingPlayer == null)
+            {
+                _playerManager.Add(peer.Id, new Player(peer));
+            }
+
+            Console.WriteLine($"Player with ID:{peer.Id} is now connected.");
         }
 
         public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
@@ -66,7 +75,7 @@ namespace Team801.Tibia2.Server
             }
 
             _playerManager.Remove(peer.Id);
-            Console.WriteLine($"Player {player.CurrentCharacter.Name} left the game");
+            Console.WriteLine($"Player with ID:{peer.Id} disconnected.");
         }
 
         public void OnNetworkError(IPEndPoint endPoint, SocketError socketError)

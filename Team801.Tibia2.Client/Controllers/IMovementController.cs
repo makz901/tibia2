@@ -1,4 +1,3 @@
-using System;
 using Godot;
 using Team801.Tibia2.Client.Controllers.Callbacks;
 

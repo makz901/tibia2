@@ -27,7 +27,7 @@ namespace Team801.Tibia2.Client.PacketHandlers
             {
                 creature.Position = packet.NewPosition;
 
-                _movementController.Callbacks?.OnMoved(creature.Position);
+                _movementController.Callbacks?.OnMoved(creature);
             }
         }
     }

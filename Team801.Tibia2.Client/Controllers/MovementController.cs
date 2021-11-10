@@ -27,12 +27,5 @@ namespace Team801.Tibia2.Client.Controllers
         {
             //todo:
         }
-
-        public void OnMoved()
-        {
-            Moved?.Invoke();
-        }
-
-        public event Action Moved;
     }
 }

@@ -15,14 +15,14 @@ namespace Team801.Tibia2.Common.Models.Creature
         public int Speed { get; set; } = 1;
 
         //Events
-        public event Action<Creature> Moved;
+        // public event Action<Creature> Moved;
 
         //Methods
         public virtual void Move(Vector2 input)
         {
             Position += input.Normalized() * Speed;
 
-            Moved?.Invoke(this);
+            // Moved?.Invoke(this);
         }
 
         public void MoveTo(Vector2 targetPosition)
@@ -33,5 +33,7 @@ namespace Team801.Tibia2.Common.Models.Creature
                 Move(direction);
             }
         }
+
+        public override string ToString() => $"[{Name}]";
     }
 }
