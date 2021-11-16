@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using LiteNetLib;
 using Team801.Tibia2.Client.Controllers;
@@ -27,7 +28,7 @@ namespace Team801.Tibia2.Client.PacketHandlers
             {
                 creature.Position = packet.NewPosition;
 
-                _movementController.Callbacks?.OnMoved(creature);
+                _movementController.Callbacks?.OnMoved(new DateTime(packet.Timestamp), creature);
             }
         }
     }

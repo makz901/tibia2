@@ -39,7 +39,7 @@ namespace Team801.Tibia2.Client.PacketHandlers
             //     _gameStateManager.CreatureList.Add(myChar);
             // }
 
-            _characterController.Callbacks.OnJoined(myChar);
+            _characterController.Callbacks.OnJoined(new DateTime(packet.Timestamp), myChar);
         }
     }
 }

@@ -6,17 +6,17 @@ namespace Team801.Tibia2.ConsoleClient.Callbacks
 {
     public class CharacterControllerCallbacks : ICharacterControllerCallbacks
     {
-        public void OnJoined(Character character)
+        public void OnJoined(DateTime timestamp, Character character)
         {
             Console.WriteLine($"Your character {character} joined the world");
         }
 
-        public void OnAppeared(Creature creature)
+        public void OnAppeared(DateTime timestamp, Creature creature)
         {
             Console.WriteLine($"Creature {creature} appeared. (Position: {creature.Position})");
         }
 
-        public void OnDisappeared(Creature creature)
+        public void OnDisappeared(DateTime timestamp, Creature creature)
         {
             Console.WriteLine($"Creature {creature} disappeared.");
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using LiteNetLib;
 using Team801.Tibia2.Client.Controllers;
@@ -26,16 +27,24 @@ namespace Team801.Tibia2.Client.PacketHandlers
             var existing = _gameStateManager.CreatureList.FirstOrDefault(x => x.Id == packet.State.Id);
             if (existing == null)
             {
-                var creature = new Character
+                Character character;
+                if (_gameStateManager.MyCharacter.Id == packet.State.Id)
                 {
-                    Id = packet.State.Id,
-                    Name = packet.State.Name,
-                    Direction = packet.State.Direction,
-                    Position = packet.State.Position,
-                };
+                    character = _gameStateManager.MyCharacter;
+                }
+                else
+                {
+                    character = new Character
+                    {
+                        Id = packet.State.Id,
+                        Name = packet.State.Name,
+                        Direction = packet.State.Direction,
+                        Position = packet.State.Position,
+                    };
+                }
 
-                _gameStateManager.CreatureList.Add(creature);
-                _characterController.Callbacks.OnAppeared(creature);
+                _gameStateManager.CreatureList.Add(character);
+                _characterController.Callbacks.OnAppeared(new DateTime(packet.Timestamp), character);
             }
         }
     }

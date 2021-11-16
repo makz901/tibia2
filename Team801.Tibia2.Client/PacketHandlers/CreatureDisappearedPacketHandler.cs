@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using LiteNetLib;
 using Team801.Tibia2.Client.Controllers;
@@ -26,7 +27,7 @@ namespace Team801.Tibia2.Client.PacketHandlers
             if (existing != null)
             {
                 _gameStateManager.CreatureList.Remove(existing);
-                _characterController.Callbacks.OnDisappeared(existing);
+                _characterController.Callbacks.OnDisappeared(new DateTime(packet.Timestamp), existing);
             }
         }
     }
