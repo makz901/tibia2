@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using Team801.Tibia2.Common.Configuration;
 using Team801.Tibia2.Server.Game.Contracts;
-using Team801.Tibia2.Server.Services.Contracts;
 using Thread = System.Threading.Thread;
 
 namespace Team801.Tibia2.Server.Game

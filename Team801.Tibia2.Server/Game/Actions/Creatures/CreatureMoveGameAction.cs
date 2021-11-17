@@ -11,21 +11,20 @@ namespace Team801.Tibia2.Server.Game.Actions.Creatures
 {
     public class CreatureMoveGameAction : BaseGameAction
     {
-        private readonly Creature _creature;
         private readonly IServerPacketManager _serverPacketManager;
         private readonly IPlayerManager _playerManager;
+        private readonly Creature _creature;
 
         public CreatureMoveGameAction(Creature creature, Vector2 direction)
             : base(() => creature.Move(direction))
         {
             _creature = creature;
+
             _serverPacketManager = ServerConfig.IoC.Resolve<IServerPacketManager>();
             _playerManager = ServerConfig.IoC.Resolve<IPlayerManager>();
-
-            Completed += OnCompleted;
         }
 
-        private void OnCompleted()
+        protected override void OnCompleted()
         {
             var nearby = _playerManager.GetNearbyPeers(_creature.Position).ToList();
             if (nearby.Any())

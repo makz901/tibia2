@@ -16,8 +16,9 @@ namespace Team801.Tibia2.Server.Game.Actions.Base
             {
                 ExpirationTime = DateTime.Now.AddMilliseconds(expirationMs.Value).TimeOfDay;
             }
-        }
 
+            Completed += OnCompleted;
+        }
         public TimeSpan? ExpirationTime { get; }
 
         public bool HasNoTimeout => ExpirationTime == null;
@@ -25,6 +26,8 @@ namespace Team801.Tibia2.Server.Game.Actions.Base
         public bool HasExpired => DateTime.Now.TimeOfDay > ExpirationTime;
 
         public event Action Completed;
+
+        protected virtual void OnCompleted() { }
 
         public void Invoke()
         {
