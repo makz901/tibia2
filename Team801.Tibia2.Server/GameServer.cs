@@ -6,6 +6,7 @@ using Autofac;
 using LiteNetLib;
 using Team801.Tibia2.Common.Configuration;
 using Team801.Tibia2.Server.Configuration;
+using Team801.Tibia2.Server.Game.Contracts;
 using Team801.Tibia2.Server.Models;
 using Team801.Tibia2.Server.Services;
 using Team801.Tibia2.Server.Services.Contracts;

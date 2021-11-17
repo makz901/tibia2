@@ -3,16 +3,10 @@ using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using Team801.Tibia2.Server.Game.Contracts;
+using Team801.Tibia2.Server.Services.Contracts;
 
-namespace Team801.Tibia2.Server.Services
+namespace Team801.Tibia2.Server.Game
 {
-    public interface IGameActionsDispatcher
-    {
-        void AddEvent(IGameAction evt, bool hasPriority = false);
-
-        void Start(CancellationToken token);
-    }
-
     public class GameActionsDispatcher : IGameActionsDispatcher
     {
         private readonly ChannelReader<IGameAction> _reader;
@@ -31,11 +25,11 @@ namespace Team801.Tibia2.Server.Services
         /// <summary>
         ///     Adds an event to dispatcher queue
         /// </summary>
-        /// <param name="evt"></param>
+        /// <param name="action"></param>
         /// <param name="hasPriority"></param>
-        public void AddEvent(IGameAction evt, bool hasPriority = false)
+        public void AddAction(IGameAction action, bool hasPriority = false)
         {
-            _writer.TryWrite(evt);
+            _writer.TryWrite(action);
         }
 
         /// <summary>

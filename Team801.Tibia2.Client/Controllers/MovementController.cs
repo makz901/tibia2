@@ -24,7 +24,9 @@ namespace Team801.Tibia2.Client.Controllers
 
         public void Move(Vector2 direction)
         {
-            Console.WriteLine($"Expected position: {_gameStateManager.MyCharacter.Move(direction)}");
+            _gameStateManager.MyCharacter.Move(direction);
+
+            Console.WriteLine($"Expected position: {_gameStateManager.MyCharacter.Position}");
 
             _clientManager.SendToServer(new MoveRequestPacket {Direction = direction});
         }

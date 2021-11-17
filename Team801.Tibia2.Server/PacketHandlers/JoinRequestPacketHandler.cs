@@ -6,6 +6,9 @@ using Team801.Tibia2.Common.PacketHandlers;
 using Team801.Tibia2.Common.Packets.FromClient;
 using Team801.Tibia2.Common.Packets.FromServer;
 using Team801.Tibia2.Common.Packets.Models;
+using Team801.Tibia2.Server.Game.Actions.Character;
+using Team801.Tibia2.Server.Game.Actions.Creatures;
+using Team801.Tibia2.Server.Game.Contracts;
 using Team801.Tibia2.Server.Services.Contracts;
 
 namespace Team801.Tibia2.Server.PacketHandlers
@@ -14,13 +17,16 @@ namespace Team801.Tibia2.Server.PacketHandlers
     {
         private readonly IPlayerManager _playerManager;
         private readonly IServerPacketManager _serverPacketManager;
+        private readonly IGameActionsDispatcher _gameActionsDispatcher;
 
         public JoinRequestPacketHandler(
             IPlayerManager playerManager,
-            IServerPacketManager serverPacketManager)
+            IServerPacketManager serverPacketManager,
+            IGameActionsDispatcher gameActionsDispatcher)
         {
             _playerManager = playerManager;
             _serverPacketManager = serverPacketManager;
+            _gameActionsDispatcher = gameActionsDispatcher;
         }
 
         protected override void Handle(JoinRequestPacket requestPacket, NetPeer peer = null)
@@ -34,28 +40,8 @@ namespace Team801.Tibia2.Server.PacketHandlers
                 return;
             }
 
-            Console.WriteLine($"Received join from character [{requestPacket.Username}] (pid: {peer.Id})");
-
-            player.CurrentCharacter = new Character
-            {
-                Name = requestPacket.Username,
-                Position = Vector2.Zero
-            };
-
-            var packetModel = new CreatureStatePacketModel
-            {
-                Id = player.CurrentCharacter.Id,
-                Name = player.CurrentCharacter.Name,
-                Position = player.CurrentCharacter.Position,
-                Direction = player.CurrentCharacter.Direction
-            };
-
-            _serverPacketManager.Send(new JoinAcceptedPacket { CreatureState = packetModel }, peer);
-
-            foreach (var nearByPlayer in _playerManager.GetNearby(player.CurrentCharacter.Position))
-            {
-                _serverPacketManager.Send(new CreatureAppearedPacket { State = packetModel }, nearByPlayer.Peer);
-            }
+            Console.WriteLine($"Received join request from character [{requestPacket.Username}] (pid: {peer.Id})");
+            _gameActionsDispatcher.AddAction(new CharacterJoinedGameAction());
         }
     }
 }

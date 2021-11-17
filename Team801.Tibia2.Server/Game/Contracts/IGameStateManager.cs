@@ -1,6 +1,6 @@
 namespace Team801.Tibia2.Server.Game.Contracts
 {
-    public interface IServerGameCalculations
+    public interface IGameStateManager
     {
         void Start();
         void Stop();
